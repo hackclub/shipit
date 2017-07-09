@@ -12,16 +12,3 @@ firebase.initializeApp(config);
 //Database Control
 const database = firebase.database();
 const projectsRef = database.ref("/projects");
-
-function createProject(){
-  var newProjectRef = projectsRef.push();
-  newProjectRef.set({
-    author: document.getElementById("name").value,
-   	timestamp: document.getElementById("time").value,
-   	desc: document.getElementById("description").value,
-   	link: document.getElementById("liveLink").value,
-   	code: document.getElementById("codeLink").value,
-   	upvote: 0,
-   	featured: "false"
-  });
-}
