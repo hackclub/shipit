@@ -59,7 +59,8 @@ function displayProjects(data){
 function createProject(){
   var newProjectRef = projectsRef.push();
   newProjectRef.set({
-    author: document.getElementById("name").value,
+    author: document.getElementById("author").value,
+    name: document.getElementById("name").value,
    	timestamp: getTimeStamp(),
    	desc: document.getElementById("description").value,
    	link: document.getElementById("liveLink").value,
