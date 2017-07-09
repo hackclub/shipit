@@ -34,3 +34,13 @@ function loadShipment() {
         $("#shipped").append(template(context[i]));
     }
 }
+
+$("#launch").on("click", openShipper);
+$("#unlaunch").on("click", closeShipper);
+function openShipper() {
+    $("#ship-modal").addClass("is-active");
+}
+
+function closeShipper() {
+    $("#ship-modal").removeClass("is-active");
+}
