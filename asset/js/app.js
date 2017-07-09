@@ -12,6 +12,8 @@ firebase.initializeApp(config);
 //Database Control
 const database = firebase.database();
 const projectsRef = database.ref("/projects");
+const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
 
 var context = [
     {
@@ -54,3 +56,30 @@ function displayProjects(data){
 		context.push(newProject)
 }
 
+function createProject(){
+  var newProjectRef = projectsRef.push();
+  newProjectRef.set({
+    author: document.getElementById("name").value,
+   	timestamp: getTimeStamp(),
+   	desc: document.getElementById("description").value,
+   	link: document.getElementById("liveLink").value,
+   	code: document.getElementById("codeLink").value,
+   	upvote: 0,
+   	featured: "false"
+  });
+}
+
+function getTimeStamp(){
+	var currentDate = new Date();
+  var hours = currentDate.getHours();
+  var minutes = currentDate.getMinutes();
+  var dd = currentDate.getDate();
+	var mm = monthNames[currentDate.getMonth()]
+	var yyyy = currentDate.getFullYear();
+  var ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12;
+  minutes = minutes < 10 ? '0'+minutes : minutes;
+  var strTime = hours + ':' + minutes + ' ' + ampm;
+  return strTime + " - " +dd + " " + mm + " " +yyyy;
+}
