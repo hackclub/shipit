@@ -32,9 +32,10 @@ function displayProjects(data){
 }
 
 function createProject(){
-	var inputs = [document.getElementById("author"),document.getElementById("name"),document.getElementById("description"),document.getElementById("liveLink"),document.getElementById("codeLink")]
+	var inputs = [document.getElementById("author"),document.getElementById("name"),document.getElementById("description"),document.getElementById("liveLink"),document.getElementById("codeLink"),document.getElementById("username")]
 	var completed = true;
-	for(var i = 0;i<inputs.length;i++)
+	console.log(inputs[5])
+	for(var i = 0;i<inputs.length-1;i++)
 	{
 		inputs[i].className = "input"
 		if(inputs[i].value == "" || undefined || null)
@@ -42,6 +43,10 @@ function createProject(){
 			inputs[i].className += " is-danger"
 			completed = false;
 		}
+	}
+	if(inputs[5].value != "")
+	{
+		completed = false;
 	}
 	if(completed == true)
 	{
