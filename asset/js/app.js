@@ -39,7 +39,8 @@ function displayProjects(data){
 			desc: data.desc,
 			link: data.link,
 			code: data.code,
-			upvote: data.upvote
+			upvote: data.upvote,
+			uuid: data.uid
 		}
 		loadShipment(newProject)
 }
