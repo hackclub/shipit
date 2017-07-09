@@ -14,6 +14,17 @@ const database = firebase.database();
 const projectsRef = database.ref("/projects");
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const query = database.ref("/projects").orderByValue().limitToLast(5);
+const connectedRef = database.ref(".info/connected");
+
+var isConnected;
+
+connectedRef.on("value", function(snapshot){
+	if(snapshot.val() == true){
+		isConnected = true;
+	}else{
+		isConnected = false;
+	}
+});
 
 query.on("child_added", function(snapshot){
   displayProjects(snapshot.val())
