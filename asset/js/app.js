@@ -115,5 +115,5 @@ function getProp(id){
 }
 
 function buildPage(data){
-	console.log(id)
+	console.log(data)
 }
