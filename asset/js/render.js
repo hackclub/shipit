@@ -19,7 +19,8 @@ function loadShipment(id) {
 }
 
 $("#launch").on("click", openShipper);
-$("#unlaunch").on("click", closeShipper);
+$(".modal-close").on("click", closeShipper);
+
 function openShipper() {
     $("#ship-modal").addClass("is-active");
 }
