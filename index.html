@@ -72,6 +72,25 @@
         </div>
     </section>
 
+    <div class="modal" id="share-modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Share 
+                    </p>
+                </header>
+                <div class="card-content">
+                    <div class="content">
+                        Share it!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="modal-close is-large" id="unlaunch"></button>
+    </div>
+
     <div class="modal" id="ship-modal">
         <div class="modal-background"></div>
         <div class="modal-content">
@@ -158,7 +177,7 @@
                     <footer class="card-footer">
                         <a class="card-footer-item" href="{{link}}"><i class="fa fa-eye"></i>&nbsp;Visit</a>
                         <a class="card-footer-item" href="{{code}}"><i class="fa fa-code"></i>&nbsp;Code</a>
-                        <a class="card-footer-item"><i class="fa fa-thumbs-up"></i>&nbsp;Upvote &nbsp;<span class="tag is-light">{{upvote}}</span></a>
+                        <a class="card-footer-item" onclick="upvote({{uuid}})"><i class="fa fa-thumbs-up"></i>&nbsp;Upvote &nbsp;<span class="tag is-light">{{upvote}}</span></a>
                         <a class="card-footer-item" onclick="shareShipment({{uuid}})"><i class="fa fa-share"></i>&nbsp;Share</a>
                     </footer>
                 </div>

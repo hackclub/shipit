@@ -24,5 +24,9 @@ function openShipper() {
 }
 
 function closeShipper() {
-    $("#ship-modal").removeClass("is-active");
+    $(".modal").removeClass("is-active");
+}
+
+function shareShipment(uuid) {
+    $("#share-modal").addClass("is-active");
 }
