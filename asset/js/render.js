@@ -14,7 +14,7 @@ var template = Handlebars.compile(shipment);
 
 function loadShipment(id) {
     $("#shipped-placeholder").hide();
-    $("#shipped").append(template(id));
+    $("#shipped").prepend(template(id));
 }
 
 $("#launch").on("click", openShipper);

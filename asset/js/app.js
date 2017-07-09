@@ -13,8 +13,9 @@ firebase.initializeApp(config);
 const database = firebase.database();
 const projectsRef = database.ref("/projects");
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const query = database.ref("/projects").orderByValue().limitToLast(5);
 
-projectsRef.on("child_added", function(snapshot){
+query.on("child_added", function(snapshot){
   displayProjects(snapshot.val())
 });
 
@@ -34,7 +35,6 @@ function displayProjects(data){
 function createProject(){
 	var inputs = [document.getElementById("author"),document.getElementById("name"),document.getElementById("description"),document.getElementById("liveLink"),document.getElementById("codeLink"),document.getElementById("username")]
 	var completed = true;
-	console.log(inputs[5])
 	for(var i = 0;i<inputs.length-1;i++)
 	{
 		inputs[i].className = "input"
@@ -82,6 +82,5 @@ function convertTimestamp(id){
 
 function getTimeStamp(){
 	var date = Date.now()
-	console.log(date)
 	return date;
 }
