@@ -107,11 +107,13 @@ function upVote(id){
 }
 
 function getProp(id){
-	console.log("start")
 	var specificRef = database.ref("/projects/" + id)
-	var projectData
 	specificRef.once("value", function(snapshot){
-		projectData = snapshot.val();
+		buildPage(snapshot.val());
 	});
-	return projectData
+	//return projectData
+}
+
+function buildPage(data){
+	console.log(id)
 }
