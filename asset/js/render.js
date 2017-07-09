@@ -30,7 +30,7 @@ var template = Handlebars.compile(shipment);
 function loadShipment() {
     $("#shipped-placeholder").hide();
     console.log(context)
-    for (var i = 0; i < Object.keys(context).length; i++) {
+    for (var i = Object.keys(context).length; i > 0; i--) {
         $("#shipped").append(template(context[i]));
     }
 }
