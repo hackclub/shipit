@@ -84,7 +84,34 @@
         </section>
         <div class="container" id="shipped">
             <!-- Start Shipped UI -->
- 
+            <script id="shipment-templ" type="text/x-handlebars-template">
+                <div class="card" id="{{uuid}}">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            @{{author}}
+                        </p>
+                        <a class="card-header-icon">
+                        <span class="icon">
+                            <i class="fa fa-angle-down"></i>
+                        </span>
+                    </a>
+                    </header>
+                    <div class="card-content shipment">
+                        <div class="content">
+                            <h3 class="title is-4">{{name}}</h3>
+                            <small>{{timestamp}}</small>
+                            <br> {{desc}}
+                        </div>
+                    </div>
+                    <footer class="card-footer">
+                        <a class="card-footer-item" href="{{link}}"><i class="fa fa-eye"></i>&nbsp;Visit</a>
+                        <a class="card-footer-item" href="{{code}}"><i class="fa fa-code"></i>&nbsp;Code</a>
+                        <a class="card-footer-item"><i class="fa fa-thumbs-up"></i>&nbsp;Upvote &nbsp;<span class="tag is-light">{{upvote}}</span></a>
+                        <a class="card-footer-item"><i class="fa fa-share"></i>&nbsp;Share</a>
+                    </footer>
+                </div>
+                <br />
+            </script>
             <div class="card" id="shipped-placeholder">
                 <div class="card-content">
                     <div class="content">
@@ -116,47 +143,12 @@
     <script src="https://use.fontawesome.com/41132a62d5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
-    <script>
-        // Initialize Firebase
-        var config = {
-            apiKey: "AIzaSyB3m0F90sr7i5r4ma8pAWimovacR8LCNLc",
-            authDomain: "shipit-f7171.firebaseapp.com",
-            databaseURL: "https://shipit-f7171.firebaseio.com",
-            projectId: "shipit-f7171",
-            storageBucket: "",
-            messagingSenderId: "454881075829"
-        };
-        firebase.initializeApp(config);
-    </script>
-    <script id="shipment-templ" type="text/x-handlebars-template">
-        <div class="card" id="{{uuid}}">
-            <header class="card-header">
-                <p class="card-header-title">
-                    @{{author}}
-                </p>
-                <a class="card-header-icon">
-                        <span class="icon">
-                            <i class="fa fa-angle-down"></i>
-                        </span>
-                    </a>
-            </header>
-            <div class="card-content shipment">
-                <div class="content">
-                    <h3 class="title is-4">{{name}}</h3>
-                    <small>{{timestamp}}</small>
-                    <br> {{desc}}
-                </div>
-            </div>
-            <footer class="card-footer">
-                <a class="card-footer-item" href="{{link}}"><i class="fa fa-eye"></i>&nbsp;Visit</a>
-                <a class="card-footer-item" href="{{code}}"><i class="fa fa-code"></i>&nbsp;Code</a>
-                <a class="card-footer-item"><i class="fa fa-thumbs-up"></i>&nbsp;Upvote &nbsp;<span class="tag is-light">{{upvote}}</span></a>
-                <a class="card-footer-item"><i class="fa fa-share"></i>&nbsp;Share</a>
-            </footer>
-        </div>
-        <br />
-    </script>
+
+    <!-- Firebase Setup -->
     <script src="asset/js/app.js"></script>
+
+    <!-- Keep this script last! -->
+    <script src="asset/js/render.js"></script>
 </body>
 
 </html>

@@ -1,33 +1,27 @@
-$(function () {
-    loadShipment();
-});
+// Initialize Firebase
+var config = {
+	apiKey: "AIzaSyD-IT1RWXi-7bMSjtTsPmpaTD2SXadFxC0",
+	authDomain: "shipit-7427d.firebaseapp.com",
+	databaseURL: "https://shipit-7427d.firebaseio.com",
+	projectId: "shipit-7427d",
+	storageBucket: "",
+  messagingSenderId: "601650858338"
+};
+firebase.initializeApp(config);
 
-var shipment = $("#shipment-templ").html();
-var template = Handlebars.compile(shipment);
+//Database Control
+const database = firebase.database();
+const projectsRef = database.ref("/projects");
 
-//Sample - To be replaced by GET db content
-var context = {
-    0: {
-        author: "zachlatta",
-        timestamp: "11:09 PM - 7 Jul 2017",
-        desc: "We help high schoolers start awesome after-school coding clubs!",
-        link: "https://hackclub.com",
-        code: "https://github.com/hackclub/hackclub",
-        upvote: 255
-    },
-    1: {
-        author: "bgates",
-        timestamp: "12:00 AM - 25 Jun 1998 ",
-        desc: "The operating system for modern devices... Like my IBM ThinkPad i1300!",
-        link: "https://windows.microsoft.com",
-        code: "https://github.com/microsoft",
-        upvote: 255
-    }
-}
-
-function loadShipment() {
-    $("#shipped-placeholder").hide();
-    for (var i = 0; i < Object.keys(context).length; i++) {
-        $("#shipped").append(template(context[i]));
-    }
+function createProject(){
+  var newProjectRef = projectsRef.push();
+  newProjectRef.set({
+    author: document.getElementById("name").value,
+   	timestamp: document.getElementById("time").value,
+   	desc: document.getElementById("description").value,
+   	link: document.getElementById("liveLink").value,
+   	code: document.getElementById("codeLink").value,
+   	upvote: 0,
+   	featured: "false"
+  });
 }
