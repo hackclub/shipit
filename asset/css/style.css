@@ -43,3 +43,7 @@ a:hover {
     padding: 3rem 1.5rem 3rem;
     
 }
+
+.hero.is-danger, .button.is-danger {
+    background-color: #E42D40;
+}
