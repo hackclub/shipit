@@ -28,10 +28,10 @@ connectedRef.on("value", function(snapshot){
 });
 
 query.on("child_added", function(snapshot){
-  displayProjects(snapshot.val())
+  displayProjects(snapshot.val(), snapshot.key)
 });
 
-function displayProjects(data){
+function displayProjects(data,key){
 		var newProject = {
 			author: data.author,
 			name: data.name,
@@ -39,7 +39,8 @@ function displayProjects(data){
 			desc: data.desc,
 			link: data.link,
 			code: data.code,
-			upvote: data.upvote
+			upvote: data.upvote,
+			uid: key
 		}
 		loadShipment(newProject)
 }
