@@ -27,12 +27,10 @@ var template = Handlebars.compile(shipment);
 //     }
 // }
 
-function loadShipment() {
+function loadShipment(id) {
     $("#shipped-placeholder").hide();
     console.log(context)
-    for (var i = Object.keys(context).length; i > 0; i--) {
-        $("#shipped").append(template(context[i]));
-    }
+    $("#shipped").append(template(context[id]));
 }
 
 $("#launch").on("click", openShipper);
