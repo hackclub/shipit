@@ -81,6 +81,7 @@ function createProject(){
 	   	upvote: 0,
 	   	featured: "false"
 	  });
+	  closeShipper();
 	}
 }
 
