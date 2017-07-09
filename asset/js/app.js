@@ -23,6 +23,7 @@ connectedRef.on("value", function(snapshot){
 		isConnected = true;
 	}else{
 		isConnected = false;
+		//Mingjie work some css magic
 	}
 });
 
@@ -44,36 +45,40 @@ function displayProjects(data){
 }
 
 function createProject(){
-	var inputs = [document.getElementById("author"),document.getElementById("name"),document.getElementById("description"),document.getElementById("liveLink"),document.getElementById("codeLink"),document.getElementById("username")]
-	var completed = true;
-	for(var i = 0;i<inputs.length-1;i++)
-	{
-		inputs[i].className = "input"
-		if(inputs[i].value == "" || undefined || null)
+	if(isConnected == true){
+		var inputs = [document.getElementById("author"),document.getElementById("name"),document.getElementById("description"),document.getElementById("liveLink"),document.getElementById("codeLink"),document.getElementById("username")]
+		var completed = true;
+		for(var i = 0;i<inputs.length-1;i++)
 		{
-			inputs[i].className += " is-danger"
+			inputs[i].className = "input"
+			if(inputs[i].value == "" || undefined || null)
+			{
+				inputs[i].className += " is-danger"
+				completed = false;
+			}
+		}
+		if(inputs[5].value != "")
+		{
 			completed = false;
 		}
-	}
-	if(inputs[5].value != "")
-	{
-		completed = false;
-	}
-	if(completed == true)
-	{
-	  var newProjectRef = projectsRef.push();
-	  newProjectRef.set({
-	    author: inputs[0].value,
-	    name: inputs[1].value,
-	   	timestamp: getTimeStamp(),
-	   	desc: inputs[2].value,
-	   	link: inputs[3].value,
-	   	code: inputs[4].value,
-	   	upvote: 0,
-	   	featured: "false",
-	   	uid: generateHackID()
-	  });
-	  closeShipper();
+		if(completed == true)
+		{
+		  var newProjectRef = projectsRef.push();
+		  newProjectRef.set({
+		    author: inputs[0].value,
+		    name: inputs[1].value,
+		   	timestamp: getTimeStamp(),
+		   	desc: inputs[2].value,
+		   	link: inputs[3].value,
+		   	code: inputs[4].value,
+		   	upvote: 0,
+		   	featured: "false",
+		   	uid: generateHackID()
+		  });
+		  closeShipper();
+		}
+	}else{
+		//Mingjie work some css magic or something
 	}
 }
 
