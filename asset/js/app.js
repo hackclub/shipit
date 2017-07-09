@@ -39,8 +39,7 @@ function displayProjects(data){
 			desc: data.desc,
 			link: data.link,
 			code: data.code,
-			upvote: data.upvote,
-			uuid: data.uid
+			upvote: data.upvote
 		}
 		loadShipment(newProject)
 }
@@ -73,8 +72,7 @@ function createProject(){
 		   	link: inputs[3].value,
 		   	code: inputs[4].value,
 		   	upvote: 0,
-		   	featured: "false",
-		   	uid: generateHackID()
+		   	featured: "false"
 		  });
 		  closeShipper();
 		}
@@ -103,14 +101,10 @@ function getTimeStamp(){
 	return date;
 }
 
-function generateHackID() {
-  var d = new Date().getTime();
+function upVote(id){
 
-  var uuid = 'xxxxx'.replace(/[xy]/g, function (c) {
-    var r = (d + Math.random() * 16) % 16 | 0;
-    d = Math.floor(d / 16);
-    return ((c == 'x' ? r : (r & 0x3 | 0x8)).toString(16)).toUpperCase();
-  });
+}
 
-  return uuid;
+function getProp(id){
+
 }
