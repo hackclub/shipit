@@ -65,12 +65,58 @@
                         </h2>
                     </div>
                     <div class="column is-one-third">
-                        <a class="button is-large is-danger">Ship Your Project</a>
+                        <a class="button is-large is-danger" id="launch">Ship Your Project</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <div class="modal" id="ship-modal">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-content">
+                    <div class="content">
+                        <div class="field">
+                            <label class="label">Name</label>
+                            <p class="control">
+                                <input class="input" type="text" id="name" placeholder="Prophet Orpheus's prophecy">
+                            </p>
+                        </div>
+                        <div class="field">
+                            <label class="label">Hacked by...</label>
+                            <p class="control">
+                                <input class="input" type="text" id="author" placeholder="Prophet Orpheus">
+                            </p>
+                        </div>
+                        <div class="field">
+                            <label class="label">Description</label>
+                            <p class="control">
+                                <input class="input" type="text" id="description" placeholder="The darkness is coming... this will prevent such doings.">
+                            </p>
+                        </div>
+                        <div class="field">
+                            <label class="label">Live Link</label>
+                            <p class="control">
+                                <input class="input" type="text" id="liveLink" placeholder="https://hackclub.com/">
+                            </p>
+                        </div>
+                        <div class="field">
+                            <label class="label">Code Link</label>
+                            <p class="control">
+                                <input class="input" type="text" id="codeLink" placeholder="https://github.com/hackclub/hackclub">
+                            </p>
+                        </div>
+                        <p class="control">
+                            <input class="button is-danger" type="button" onClick="createProject()" value="Ship your project!">
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="modal-close is-large" id="unlaunch"></button>
+    </div>
 
     <section class="shipped">
         <section class="hero is-danger banner">
