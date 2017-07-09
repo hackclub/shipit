@@ -70,7 +70,8 @@ function createProject(){
 	   	link: inputs[3].value,
 	   	code: inputs[4].value,
 	   	upvote: 0,
-	   	featured: "false"
+	   	featured: "false",
+	   	uid: generateHackID()
 	  });
 	  closeShipper();
 	}
