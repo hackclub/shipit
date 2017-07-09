@@ -10,6 +10,7 @@ var template = Handlebars.compile(shipment);
 //         link: "https://hackclub.com",
 //         code: "https://github.com/hackclub/hackclub",
 //         upvote: 255
+//         uuid: 125121
 //         }
 
 function loadShipment(id) {
