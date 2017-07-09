@@ -107,10 +107,11 @@ function upVote(id){
 }
 
 function getProp(id){
+	console.log("start")
 	var specificRef = database.ref("/projects/" + id)
-	specificRef.once("value").then(function(snapshot){
-		return snapshot.val();
-	}, function(error) {
-		console.log("Doesn't exist")
+	var projectData
+	specificRef.once("value", function(snapshot){
+		projectData = snapshot.val();
 	});
+	return projectData
 }
