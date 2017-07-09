@@ -22,7 +22,7 @@ function displayProjects(data){
 		var newProject = {
 			author: data.author,
 			name: data.name,
-			timestamp: data.timestamp,
+			timestamp: convertTimestamp(data.timestamp),
 			desc: data.desc,
 			link: data.link,
 			code: data.code,
@@ -60,8 +60,8 @@ function createProject(){
 	}
 }
 
-function getTimeStamp(){
-	var currentDate = new Date();
+function convertTimestamp(id){
+	var currentDate = new Date(id);
   var hours = currentDate.getHours();
   var minutes = currentDate.getMinutes();
   var dd = currentDate.getDate();
@@ -73,4 +73,10 @@ function getTimeStamp(){
   minutes = minutes < 10 ? '0'+minutes : minutes;
   var strTime = hours + ':' + minutes + ' ' + ampm;
   return strTime + " - " +dd + " " + mm + " " +yyyy;
+}
+
+function getTimeStamp(){
+	var date = Date.now()
+	console.log(date)
+	return date;
 }
