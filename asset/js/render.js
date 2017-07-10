@@ -1,11 +1,3 @@
-$(function () {
-    var shared = getParams("shared");
-    if (shared != null) {
-        //Stop running get all, only display the requested card
-    }
-    new Clipboard('#copy-share-link');
-});
-
 var shipment = $("#shipment-templ").html();
 var template = Handlebars.compile(shipment);
 
@@ -44,14 +36,4 @@ function shareShipment(uid) {
 
 function shareTwitter() {
     window.location.href = "http://twitter.com/share?text=I found a wonderful project created by a Hack Club member!&url=" + $("#share-id").attr("value") + "&via=starthackclub&related=starthackclub";
-}
-
-function getParams(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }

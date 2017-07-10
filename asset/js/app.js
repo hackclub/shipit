@@ -18,6 +18,28 @@ const connectedRef = database.ref(".info/connected");
 
 var isConnected;
 
+function getParams(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+$(function() {
+    var shared = getParams("shared");
+    if (shared != null) {
+        getProp(shared);
+    }else{
+    	new Clipboard('#copy-share-link');
+    	query.on("child_added", function(snapshot){
+			  displayProjects(snapshot.val(), snapshot.key)
+			});
+    }
+});
+
 connectedRef.on("value", function(snapshot){
 	if(snapshot.val() == true){
 		isConnected = true;
@@ -27,9 +49,7 @@ connectedRef.on("value", function(snapshot){
 	}
 });
 
-query.on("child_added", function(snapshot){
-  displayProjects(snapshot.val(), snapshot.key)
-});
+
 
 function displayProjects(data,key){
 		var newProject = {
@@ -102,18 +122,17 @@ function getTimeStamp(){
 	return date;
 }
 
-function upVote(id){
+function upVote(key){
 
 }
 
 function getProp(id){
 	var specificRef = database.ref("/projects/" + id)
 	specificRef.once("value", function(snapshot){
-		buildPage(snapshot.val());
+		buildPage(snapshot.val(),id);
 	});
-	//return projectData
 }
 
-function buildPage(data){
-	console.log(data)
+function buildPage(data,key){
+	displayProjects(data,key)
 }
