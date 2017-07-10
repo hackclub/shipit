@@ -130,11 +130,9 @@ function getProp(id){
 	var specificRef = database.ref("/projects/" + id)
 	specificRef.once("value", function(snapshot){
 		buildPage(snapshot.val(),id);
-	}); 
-	//return projectData
+	});
 }
 
 function buildPage(data,key){
 	displayProjects(data,key)
-	console.log(data)
 }
