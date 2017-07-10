@@ -50,14 +50,20 @@
         </div>
         <div class="navbar-end">
             <div class="navbar-item">
+                <figure class="image is-32x32">
+                    <img id="useravatar">
+                </figure>
+                <span id="username">Not Signed In</span>
+            </div>
+            <div class="navbar-item">
                 <div class="field is-grouped">
                     <p class="control">
-                        <a class="button is-dark" href="#" onclick="githubSignin()">
+                        <a class="button is-dark" id="gh-login" href="#" onclick="githubSignin()">
                             <span class="icon"><i class="fa fa-github"></i></span>
                             <span>Sign In</span>
                         </a>
 
-                        <a class="button is-dark" href="#" onclick="githubSignout()">
+                        <a class="button is-dark hidden" id="gh-logout" href="#" onclick="githubSignout()">
                             <span class="icon"><i class="fa fa-github"></i></span>
                             <span>Sign Out</span>
                         </a>

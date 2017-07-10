@@ -5,7 +5,7 @@ var config = {
 	databaseURL: "https://shipit-7427d.firebaseio.com",
 	projectId: "shipit-7427d",
 	storageBucket: "",
-  messagingSenderId: "601650858338"
+	messagingSenderId: "601650858338"
 };
 firebase.initializeApp(config);
 
@@ -20,59 +20,73 @@ const connectedRef = database.ref(".info/connected");
 var isConnected;
 
 function githubSignin() {
-   firebase.auth().signInWithPopup(provider)
-   
-   .then(function(result) {
-      var token = result.credential.accessToken;
-      var user = result.user;
-		
-      console.log(token)
-      console.log(user)
-   }).catch(function(error) {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-		
-      console.log(error.code)
-      console.log(error.message)
-   });
+	firebase.auth().signInWithPopup(provider)
+
+		.then(function (result) {
+			var token = result.credential.accessToken;
+			var user = result.user;
+
+			console.log(token)
+			console.log(user)
+			//User Sucessfully Logged In
+
+			$("#gh-login").hide();
+			$("#gh-logout").show();
+
+			$("#username").html(user.displayName);
+			$("#useravatar").attr("src", user.photoURL)
+		}).catch(function (error) {
+			var errorCode = error.code;
+			var errorMessage = error.message;
+
+			console.log(error.code)
+			console.log(error.message)
+			//User Log In Error
+		});
 }
 
-function githubSignout(){
-   firebase.auth().signOut()
-   
-   .then(function() {
-      console.log('Signout successful!')
-   }, function(error) {
-      console.log('Signout failed')
-   });
+function githubSignout() {
+	firebase.auth().signOut()
+
+		.then(function () {
+			console.log('Signout successful!');
+
+			//User Log Out Successful
+			$("#gh-login").hide();
+			$("#gh-logout").show();
+		}, function (error) {
+			console.log('Signout failed');
+			
+			//User Log Out Failed
+		});
 }
 
 function getParams(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+	if (!url) url = window.location.href;
+	name = name.replace(/[\[\]]/g, "\\$&");
+	var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+		results = regex.exec(url);
+	if (!results) return null;
+	if (!results[2]) return '';
+	return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-$(function() {
-    var shared = getParams("shared");
-    if (shared != null) {
-        getProp(shared);
-    }else{
-    	new Clipboard('#copy-share-link');
-    	query.on("child_added", function(snapshot){
-			  displayProjects(snapshot.val(), snapshot.key)
-			});
-    }
+$(function () {
+	var shared = getParams("shared");
+	if (shared != null) {
+		getProp(shared);
+	} else {
+		new Clipboard('#copy-share-link');
+		query.on("child_added", function (snapshot) {
+			displayProjects(snapshot.val(), snapshot.key)
+		});
+	}
 });
 
-connectedRef.on("value", function(snapshot){
-	if(snapshot.val() == true){
+connectedRef.on("value", function (snapshot) {
+	if (snapshot.val() == true) {
 		isConnected = true;
-	}else{
+	} else {
 		isConnected = false;
 		//Mingjie work some css magic
 	}
@@ -80,88 +94,84 @@ connectedRef.on("value", function(snapshot){
 
 
 
-function displayProjects(data,key){
-		var newProject = {
-			author: data.author,
-			name: data.name,
-			timestamp: convertTimestamp(data.timestamp),
-			desc: data.desc,
-			link: data.link,
-			code: data.code,
-			upvote: data.upvote,
-			uid: key
-		}
-		loadShipment(newProject)
+function displayProjects(data, key) {
+	var newProject = {
+		author: data.author,
+		name: data.name,
+		timestamp: convertTimestamp(data.timestamp),
+		desc: data.desc,
+		link: data.link,
+		code: data.code,
+		upvote: data.upvote,
+		uid: key
+	}
+	loadShipment(newProject)
 }
 
-function createProject(){
-	if(isConnected == true){
-		var inputs = [document.getElementById("author"),document.getElementById("name"),document.getElementById("description"),document.getElementById("liveLink"),document.getElementById("codeLink"),document.getElementById("username")]
+function createProject() {
+	if (isConnected == true) {
+		var inputs = [document.getElementById("author"), document.getElementById("name"), document.getElementById("description"), document.getElementById("liveLink"), document.getElementById("codeLink"), document.getElementById("username")]
 		var completed = true;
-		for(var i = 0;i<inputs.length-1;i++)
-		{
+		for (var i = 0; i < inputs.length - 1; i++) {
 			inputs[i].className = "input"
-			if(inputs[i].value == "" || undefined || null)
-			{
+			if (inputs[i].value == "" || undefined || null) {
 				inputs[i].className += " is-danger"
 				completed = false;
 			}
 		}
-		if(inputs[5].value != "")
-		{
+		if (inputs[5].value != "") {
 			completed = false;
 		}
-		if(completed == true)
-		{
-		  var newProjectRef = projectsRef.push();
-		  newProjectRef.set({
-		    author: inputs[0].value,
-		    name: inputs[1].value,
-		   	timestamp: getTimeStamp(),
-		   	desc: inputs[2].value,
-		   	link: inputs[3].value,
-		   	code: inputs[4].value,
-		   	upvote: 0,
-		   	featured: "false"
-		  });
-		  closeShipper();
+		if (completed == true) {
+			var newProjectRef = projectsRef.push();
+			newProjectRef.set({
+				author: inputs[0].value,
+				name: inputs[1].value,
+				timestamp: getTimeStamp(),
+				desc: inputs[2].value,
+				link: inputs[3].value,
+				code: inputs[4].value,
+				upvote: 0,
+				featured: "false"
+			});
+			closeShipper();
 		}
-	}else{
+	} else {
 		//Mingjie work some css magic or something
 	}
 }
 
-function convertTimestamp(id){
+function convertTimestamp(id) {
 	var currentDate = new Date(id);
-  var hours = currentDate.getHours();
-  var minutes = currentDate.getMinutes();
-  var dd = currentDate.getDate();
+	var hours = currentDate.getHours();
+	var minutes = currentDate.getMinutes();
+	var dd = currentDate.getDate();
 	var mm = monthNames[currentDate.getMonth()]
 	var yyyy = currentDate.getFullYear();
-  var ampm = hours >= 12 ? 'PM' : 'AM';
-  hours = hours % 12;
-  hours = hours ? hours : 12;
-  minutes = minutes < 10 ? '0'+minutes : minutes;
-  var strTime = hours + ':' + minutes + ' ' + ampm;
-  return strTime + " - " +dd + " " + mm + " " +yyyy;
+	var ampm = hours >= 12 ? 'PM' : 'AM';
+	hours = hours % 12;
+	hours = hours ? hours : 12;
+	minutes = minutes < 10 ? '0' + minutes : minutes;
+	var strTime = hours + ':' + minutes + ' ' + ampm;
+	return strTime + " - " + dd + " " + mm + " " + yyyy;
 }
 
-function getTimeStamp(){
+function getTimeStamp() {
 	var date = Date.now()
 	return date;
 }
 
-function upVote(key){
+function upVote(key) {
 
 }
 
-function getProp(id){
+function getProp(id) {
 	var specificRef = database.ref("/projects/" + id)
-	specificRef.once("value", function(snapshot){
-		buildPage(snapshot.val(),id);
+	specificRef.once("value", function (snapshot) {
+		buildPage(snapshot.val(), id);
 	});
 }
 
-function buildPage(data,key){
-	displayProjects(data,key)
+function buildPage(data, key) {
+	displayProjects(data, key)
 }
