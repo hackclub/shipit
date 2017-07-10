@@ -10,6 +10,7 @@ var config = {
 firebase.initializeApp(config);
 
 //Database Control
+const provider = new firebase.auth.GithubAuthProvider();
 const database = firebase.database();
 const projectsRef = database.ref("/projects");
 const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -17,6 +18,34 @@ const query = database.ref("/projects").orderByValue().limitToLast(5);
 const connectedRef = database.ref(".info/connected");
 
 var isConnected;
+
+function githubSignin() {
+   firebase.auth().signInWithPopup(provider)
+   
+   .then(function(result) {
+      var token = result.credential.accessToken;
+      var user = result.user;
+		
+      console.log(token)
+      console.log(user)
+   }).catch(function(error) {
+      var errorCode = error.code;
+      var errorMessage = error.message;
+		
+      console.log(error.code)
+      console.log(error.message)
+   });
+}
+
+function githubSignout(){
+   firebase.auth().signOut()
+   
+   .then(function() {
+      console.log('Signout successful!')
+   }, function(error) {
+      console.log('Signout failed')
+   });
+}
 
 function getParams(name, url) {
     if (!url) url = window.location.href;
