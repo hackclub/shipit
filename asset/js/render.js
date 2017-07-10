@@ -1,8 +1,9 @@
-$(function() {
+$(function () {
     var shared = getParams("shared");
     if (shared != null) {
         //Stop running get all, only display the requested card
     }
+    new Clipboard('#copy-share-link');
 });
 
 var shipment = $("#shipment-templ").html();
@@ -36,8 +37,13 @@ function closeShipper() {
     $(".modal").removeClass("is-active");
 }
 
-function shareShipment(uuid) {
+function shareShipment(uid) {
+    $("#share-id").attr("value", "https://shipit.tech/?shared=" + uid);
     $("#share-modal").addClass("is-active");
+}
+
+function shareTwitter() {
+    window.location.href = "http://twitter.com/share?text=I found a wonderful project created by a Hack Club member!&url=" + $("#share-id").attr("value") + "&via=starthackclub&related=starthackclub";
 }
 
 function getParams(name, url) {

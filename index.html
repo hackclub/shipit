@@ -78,12 +78,26 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Share 
+                        Share
                     </p>
                 </header>
                 <div class="card-content">
                     <div class="content">
-                        Share it!
+                        <p>Share this project with your friends on social media!</p>
+                        <p>The share link is...</p>
+                        <div class="columns">
+                            <div class="column is-10">
+                                <input class="input" id="share-id" type="text" value="">
+                            </div>
+                            <div class="column is-2">
+                                <button id="copy-share-link" class="button" data-clipboard-target="#share-id"><i class="fa fa-clipboard"></i>&nbsp;Copy</button>
+                            </div>
+                        </div>
+                        <div class="has-text-centered">
+                            <a href="#" onclick="shareTwitter()">
+                                <i class="fa fa-2x fa-twitter"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -177,7 +191,7 @@
                     <footer class="card-footer">
                         <a class="card-footer-item" href="{{link}}"><i class="fa fa-eye"></i>&nbsp;Visit</a>
                         <a class="card-footer-item" href="{{code}}"><i class="fa fa-code"></i>&nbsp;Code</a>
-                        <a class="card-footer-item" id='{{uid}}'onclick="upvote('{{uid}}')"><i class="fa fa-thumbs-up"></i>&nbsp;Upvote &nbsp;<span class="tag is-light">{{upvote}}</span></a>
+                        <a class="card-footer-item" id='{{uid}}' onclick="upvote('{{uid}}')"><i class="fa fa-thumbs-up"></i>&nbsp;Upvote &nbsp;<span class="tag is-light">{{upvote}}</span></a>
                         <a class="card-footer-item" onclick="shareShipment('{{uid}}')"><i class="fa fa-share"></i>&nbsp;Share</a>
                     </footer>
                 </div>
@@ -214,6 +228,7 @@
     <script src="https://use.fontawesome.com/41132a62d5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
 
     <!-- Firebase Setup -->
     <script src="asset/js/app.js"></script>
