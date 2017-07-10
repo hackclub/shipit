@@ -47,7 +47,3 @@ a:hover {
 .hero.is-danger, .button.is-danger {
     background-color: #E42D40;
 }
-
-.hidden {
-    display: none;
-}
