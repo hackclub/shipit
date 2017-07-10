@@ -52,8 +52,11 @@ function githubSignout() {
 			console.log('Signout successful!');
 
 			//User Log Out Successful
-			$("#gh-login").hide();
-			$("#gh-logout").show();
+			$("#gh-login").show();
+			$("#gh-logout").hide();
+
+			$("#username").html("");
+			$("#useravatar").attr("src", "Not Signed In");
 		}, function (error) {
 			console.log('Signout failed');
 			
