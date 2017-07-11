@@ -30,11 +30,7 @@ function githubSignin() {
 			console.log(user)
 			//User Sucessfully Logged In
 
-			$("#gh-login").hide();
-			$("#gh-logout").show();
 
-			$("#username").html(user.displayName);
-			$("#useravatar").attr("src", user.photoURL)
 		}).catch(function (error) {
 			var errorCode = error.code;
 			var errorMessage = error.message;
@@ -52,16 +48,28 @@ function githubSignout() {
 			console.log('Signout successful!');
 
 			//User Log Out Successful
-			$("#gh-login").show();
-			$("#gh-logout").hide();
-
-			$("#username").html("");
-			$("#useravatar").attr("src", "Not Signed In");
+			isLoggedOut();
 		}, function (error) {
 			console.log('Signout failed');
-			
+
 			//User Log Out Failed
 		});
+}
+
+function isLoggedOut() {
+	$("#gh-login").show();
+	$("#gh-logout").hide();
+
+	$("#username").html("");
+	$("#useravatar").attr("src", "Not Signed In");
+}
+
+function isLoggedIn() {
+	$("#gh-login").hide();
+	$("#gh-logout").show();
+
+	$("#username").html(user.displayName);
+	$("#useravatar").attr("src", user.photoURL)
 }
 
 function getParams(name, url) {
