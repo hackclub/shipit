@@ -30,7 +30,7 @@ function githubSignin() {
 			console.log(user)
 			//User Sucessfully Logged In
 
-			isLoggedIn();
+			isLoggedIn(user, token);
 		}).catch(function (error) {
 			var errorCode = error.code;
 			var errorMessage = error.message;
@@ -64,7 +64,7 @@ function isLoggedOut() {
 	$("#useravatar").attr("src", "Not Signed In");
 }
 
-function isLoggedIn() {
+function isLoggedIn(user, token) {
 	$("#gh-login").hide();
 	$("#gh-logout").show();
 
