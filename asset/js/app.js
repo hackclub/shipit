@@ -131,6 +131,7 @@ function displayProjects(data, key) {
 }
 
 function createProject() {
+	console.log(isConnected);
 	if (isConnected == true) {
 		var inputs = [document.getElementById("author"), document.getElementById("name"), document.getElementById("description"), document.getElementById("liveLink"), document.getElementById("codeLink"), document.getElementById("username")]
 		var completed = true;
@@ -141,7 +142,7 @@ function createProject() {
 				completed = false;
 			}
 		}
-		if (inputs[5].value != "") {
+		if (inputs[5].value != "" || undefined || null) {
 			completed = false;
 		}
 		if (completed == true) {
