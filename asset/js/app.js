@@ -18,6 +18,7 @@ const query = database.ref("/projects").orderByValue().limitToLast(5);
 const connectedRef = database.ref(".info/connected");
 
 var isConnected;
+var userDetails;
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -34,7 +35,8 @@ function githubSignin() {
 		.then(function (result) {
 			var token = result.credential.accessToken;
 			var user = result.user;
-
+            var userDetails = firebase.auth().currentUser;
+            console.log(userDetails.providerData)
 			console.log(token)
 			console.log(user)
 			//User Sucessfully Logged In
