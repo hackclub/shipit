@@ -69,8 +69,8 @@ function isLoggedOut() {
 	$("#gh-login").show();
 	$("#gh-logout").hide();
 
-	$("#username").html("");
-	$("#useravatar").attr("src", "Not Signed In");
+	$("#username").html("Not Signed In");
+	$("#useravatar").attr("src", "");
 }
 
 function isLoggedIn(user, token) {
