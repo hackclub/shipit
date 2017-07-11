@@ -21,10 +21,10 @@ var isConnected;
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    console.log("Signed in!");
-	console.log(firebase.auth().currentUser);
+	var cuser = firebase.auth().currentUser;
+	isLoggedIn(cuser);
   } else {
-    console.log("Not signed in!");
+	//User Not Logged In
   }
 });
 
