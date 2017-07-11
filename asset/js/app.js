@@ -78,7 +78,9 @@ function isLoggedIn(user, token) {
 	$("#gh-logout").show();
 
 	$("#username").html(user.displayName);
-	$("#useravatar").attr("src", user.photoURL)
+	var name = (user.displayName).split(" ");
+	$("#fname-header").html(name[0] + ", t");
+	$("#useravatar").attr("src", user.photoURL);
 }
 
 function getParams(name, url) {
