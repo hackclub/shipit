@@ -69,7 +69,7 @@ function isLoggedOut() {
 	$("#gh-login").show();
 	$("#gh-logout").hide();
 
-	$("#username").html("Not Signed In");
+	$("#userName").html("Not Signed In");
 	$("#useravatar").attr("src", "");
 }
 
@@ -77,7 +77,7 @@ function isLoggedIn(user, token) {
 	$("#gh-login").hide();
 	$("#gh-logout").show();
 
-	$("#username").html(user.displayName);
+	$("#userName").html(user.displayName);
 	var name = (user.displayName).split(" ");
 	$("#fname-header").html(name[0] + ", t");
 	$("#useravatar").attr("src", user.photoURL);
@@ -131,7 +131,6 @@ function displayProjects(data, key) {
 }
 
 function createProject() {
-	console.log(isConnected);
 	if (isConnected == true) {
 		var inputs = [document.getElementById("author"), document.getElementById("name"), document.getElementById("description"), document.getElementById("liveLink"), document.getElementById("codeLink"), document.getElementById("username")]
 		var completed = true;
@@ -142,7 +141,7 @@ function createProject() {
 				completed = false;
 			}
 		}
-		if (inputs[5].value != "" || undefined || null) {
+		if (inputs[5].value != "" || undefined) {
 			completed = false;
 		}
 		if (completed == true) {
