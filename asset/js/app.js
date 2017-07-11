@@ -30,7 +30,7 @@ function githubSignin() {
 			console.log(user)
 			//User Sucessfully Logged In
 
-
+			isLoggedIn();
 		}).catch(function (error) {
 			var errorCode = error.code;
 			var errorMessage = error.message;
