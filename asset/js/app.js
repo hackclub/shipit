@@ -36,7 +36,7 @@ function githubSignin() {
 			var token = result.credential.accessToken;
 			var user = result.user;
             var userDetails = firebase.auth().currentUser;
-            console.log(userDetails.providerData)
+            console.log(userDetails.auth)
 			console.log(token)
 			console.log(user)
 			//User Sucessfully Logged In
