@@ -23,6 +23,7 @@ var userUID;
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
 	var cuser = firebase.auth().currentUser;
+	userUID = cuser.uid;
 	isLoggedIn(cuser);
   } else {
 	//User Not Logged In
@@ -35,7 +36,7 @@ function githubSignin() {
 		.then(function (result) {
 			var token = result.credential.accessToken;
 			var user = result.user;
-            var userUID = firebase.auth().uid;
+            userUID = user.uid;
 			console.log(token)
 			console.log(user)
 			//User Sucessfully Logged In
@@ -163,7 +164,7 @@ function createProject() {
 				code: inputs[4].value,
 				upvote: 0,
 				featured: "false",
-                uid: userDetails
+                uid: userUID
 			});
 			closeShipper();
 		}
