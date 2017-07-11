@@ -96,14 +96,21 @@ function getParams(name, url) {
 }
 
 $(function () {
+	new Clipboard('#copy-share-link');
 	var shared = getParams("shared");
 	if (shared != null) {
 		getProp(shared);
+		$("#launch").on("click", function() {
+			window.location.replace("/?action=launch");
+		});
 	} else {
-		new Clipboard('#copy-share-link');
 		query.on("child_added", function (snapshot) {
 			displayProjects(snapshot.val(), snapshot.key)
 		});
+	}
+	var action = getParams("action");
+	if (action == "launch") {
+		openShipper();
 	}
 });
 
