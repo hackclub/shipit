@@ -18,7 +18,7 @@ const query = database.ref("/projects").orderByValue().limitToLast(5);
 const connectedRef = database.ref(".info/connected");
 
 var isConnected;
-var userDetails;
+var userUID;
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -35,8 +35,7 @@ function githubSignin() {
 		.then(function (result) {
 			var token = result.credential.accessToken;
 			var user = result.user;
-            var userDetails = firebase.auth().currentUser;
-            console.log(firebase.auth().currentUser.uid)
+            var userUID = firebase.auth().uid;
 			console.log(token)
 			console.log(user)
 			//User Sucessfully Logged In
@@ -163,7 +162,8 @@ function createProject() {
 				link: inputs[3].value,
 				code: inputs[4].value,
 				upvote: 0,
-				featured: "false"
+				featured: "false",
+                uid: userDetails
 			});
 			closeShipper();
 		}
