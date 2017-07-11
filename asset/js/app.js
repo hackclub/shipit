@@ -19,20 +19,14 @@ const connectedRef = database.ref(".info/connected");
 
 var isConnected;
 
-$(function () {
-	checkLogin();
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    console.log("Signed in!");
+	console.log(firebase.auth().currentUser);
+  } else {
+    console.log("Not signed in!");
+  }
 });
-
-function checkLogin() {
-	var user = firebase.auth().currentUser;
-
-	if (user) {
-		console.log("User is logged in!");
-		console.log(user);
-	} else {
-		console.log("User is not logged in!");
-	}
-}
 
 function githubSignin() {
 	firebase.auth().signInWithPopup(provider)
