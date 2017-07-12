@@ -16,7 +16,7 @@ textarea {
     margin-top: 10px;
 }
 
-a {
+#content a {
     color: #E42D40;
     -o-transition: color .2s ease-out, background 1s ease-in;
     -ms-transition: color .2s ease-out, background 1s ease-in;
@@ -25,7 +25,7 @@ a {
     transition: color .2s ease-out, background 1s ease-in;
 }
 
-a:hover {
+#content a:hover {
     color: #921D29;
 }
 
