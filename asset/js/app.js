@@ -17,14 +17,13 @@ const monthNames = ["January", "February", "March", "April", "May", "June", "Jul
 const query = database.ref("/projects").orderByValue().limitToLast(5);
 const connectedRef = database.ref(".info/connected");
 
-var isConnected;
-var userUID;
+var isConnected, userUID, userData;
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-	var cuser = firebase.auth().currentUser;
-	userUID = cuser.uid;
-	isLoggedIn(cuser);
+	userData = firebase.auth().currentUser;
+	userUID = userData.uid;
+	isLoggedIn(userData);
   } else {
 	//User Not Logged In
   }
@@ -35,13 +34,13 @@ function githubSignin() {
 
 		.then(function (result) {
 			var token = result.credential.accessToken;
-			var user = result.user;
-            userUID = user.uid;
+			userData = result.user;
+            userUID = userData.uid;
 			console.log(token)
-			console.log(user)
+			console.log(userData)
 			//User Sucessfully Logged In
 
-			isLoggedIn(user, token);
+			isLoggedIn(userData, token);
 		}).catch(function (error) {
 			var errorCode = error.code;
 			var errorMessage = error.message;
@@ -73,6 +72,8 @@ function isLoggedOut() {
 
 	$("#userName").html("Not Signed In");
 	$("#useravatar").attr("src", "");
+
+	userData = undefined;
 }
 
 function isLoggedIn(user, token) {
