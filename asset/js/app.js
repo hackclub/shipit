@@ -189,9 +189,11 @@ function checkIfValidURL(link){
     type: 'HEAD',
     url: link,
 	success: function() {
+		console.log("test")
 		return true;
 	},
 	error: function() {
+		console.log('test2')
 	    return false
 	}
 	});
