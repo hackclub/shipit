@@ -40,10 +40,15 @@ a:hover {
 
 .footer {
     margin-top: 20px;
-    padding: 3rem 1.5rem 3rem;
-    
+    padding: 3rem 2rem 3rem;
 }
 
 .hero.is-danger, .button.is-danger {
     background-color: #E42D40;
+}
+
+a.card-footer-item.is-danger{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #E42D40;
 }
