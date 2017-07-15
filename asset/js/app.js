@@ -18,7 +18,7 @@ const query = database.ref("/projects").orderByChild("timestamp");
 const connectedRef = database.ref(".info/connected");
 const databaseRef = database.ref("/");
 
-var isConnected;
+var isConnected, upvoteStatus = true;
 var projectsDisplayed = [];
 
 firebase.auth().onAuthStateChanged(function (user) {
@@ -183,7 +183,7 @@ function checkIfValidURL(value, ssl) {
     if (ssl) {
         return /^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
     } else {
-        return /^(?:(?:(?:http?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test( value );
+        return /^(?:(?:(?:http?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})).?)(?::\d{2,5})?(?:[/?#]\S*)?$/i.test(value);
     }
 }
 
@@ -208,14 +208,19 @@ function getTimeStamp() {
 }
 
 function startUpVote(key) {
-    checkIfAlreadyUpvoted(firebase.auth().currentUser.uid, key);
+    if (upvoteStatus) {
+        upvoteStatus = false;
+        checkIfAlreadyUpvoted(firebase.auth().currentUser.uid, key);
+    }
 }
 
 function unVoteProject(userId, key) {
     var tempRef = database.ref("/users/" + userId + "/upVoted/" + key);
     tempRef.remove();
     $("#num" + key).text(parseInt($("#num" + key).text()) - 1);
-    $("#" + key).removeClass("is-danger")
+    $("#" + key).removeClass("is-danger");
+    
+    upvoteStatus = true;
 }
 
 function upVoteProject(userId, key) {
@@ -229,6 +234,8 @@ function upVoteProject(userId, key) {
 
 
     $("#" + key).addClass("is-danger");
+
+    upvoteStatus = true;
 }
 
 function updateUpVoteCount(key, state) {
