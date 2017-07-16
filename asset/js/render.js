@@ -22,7 +22,16 @@ $("#launch").on("click", openShipper);
 $(".modal-close").on("click", closeShipper);
 
 function openShipper() {
-    $("#ship-modal").addClass("is-active");
+    console.log(firebase.auth().currentUser);
+    if (firebase.auth().currentUser != null) {
+        $("#ship-modal").addClass("is-active");
+    } else {
+        forceLogin();
+    }
+}
+
+function forceLogin() {
+    $("#login-modal").addClass("is-active");
 }
 
 function closeShipper() {

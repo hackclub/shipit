@@ -25,7 +25,7 @@ firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         isLoggedIn(firebase.auth().currentUser);
     } else {
-        //User Not Logged In
+        isLoggedOut();
     }
 });
 
@@ -36,14 +36,12 @@ function githubSignin() {
             checkForFirstTime(firebase.auth().currentUser.uid);
             //User Sucessfully Logged In
 
-            isLoggedIn(firebase.auth().currentUser, result.credential.accessToken);
+            toastr.success("Welcome, " + name[0] + "!", "Successfully logged in.");
         }).catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;
-
-            console.log(error.code);
-            console.log(error.message);
             //User Log In Error
+            toastr.error("Signin failed: " + errorCode + " - " + errorMessage);
         });
 }
 
@@ -51,12 +49,13 @@ function githubSignout() {
     firebase.auth().signOut()
 
         .then(function () {
-            console.log('Signout successful!');
 
-            //User Log Out Successful
-            isLoggedOut();
+            window.location.reload();
+            //User Log Out Successful, refresh page for content
+
         }, function (error) {
-            console.log('Signout failed');
+
+            toastr.error("Signout failed: " + error);
 
             //User Log Out Failed
         });
@@ -74,11 +73,14 @@ function isLoggedIn(user, token) {
     $("#gh-login").hide();
     $("#gh-logout").show();
 
+    closeShipper();
+
     $("#userName").html(user.displayName);
     var name = (user.displayName).split(" ");
     $("#fname-header").html(name[0] + ", t");
     $("#useravatar").attr("src", user.photoURL);
     loadUpVotedProjects(firebase.auth().currentUser.uid);
+
 }
 
 function getParams(name, url) {
@@ -100,7 +102,7 @@ $(function () {
             window.location.replace("/?action=launch");
         });
     } else {
-        query.limitToLast(5).on("child_added", function (snapshot) {
+        query.limitToLast(10).on("child_added", function (snapshot) {
             displayProjects(snapshot.val(), snapshot.key);
         });
     }
@@ -160,19 +162,27 @@ function createProject() {
             inputs[4].className += " is-danger";
         }
         if (completed) {
-            var newProjectRef = projectsRef.push();
-            newProjectRef.set({
-                author: inputs[0].value,
-                name: inputs[1].value,
-                timestamp: getTimeStamp(),
-                desc: inputs[2].value,
-                link: inputs[3].value,
-                code: inputs[4].value,
-                upvote: 0,
-                featured: "false",
-                uid: firebase.auth().currentUser.uid
-            });
-            closeShipper();
+            if (firebase.auth().currentUser != null) {
+                var newProjectRef = projectsRef.push();
+                newProjectRef.set({
+                    author: inputs[0].value,
+                    name: inputs[1].value,
+                    timestamp: getTimeStamp(),
+                    desc: inputs[2].value,
+                    link: inputs[3].value,
+                    code: inputs[4].value,
+                    upvote: 0,
+                    featured: "false",
+                    uid: firebase.auth().currentUser.uid
+                });
+                closeShipper();
+            }
+            else {
+                toastr.error("You are not logged in... Cheater!");
+            }
+        }
+        else {
+            toastr.error("Shipping error: Check for fields in red!");
         }
     } else {
         //Mingjie work some css magic or something
@@ -208,34 +218,47 @@ function getTimeStamp() {
 }
 
 function startUpVote(key) {
-    if (upvoteStatus) {
-        upvoteStatus = false;
-        checkIfAlreadyUpvoted(firebase.auth().currentUser.uid, key);
+    if (firebase.auth().currentUser != null) {
+        if (upvoteStatus) {
+            upvoteStatus = false;
+            checkIfAlreadyUpvoted(firebase.auth().currentUser.uid, key);
+        }
+    } else {
+        forceLogin();
     }
 }
 
 function unVoteProject(userId, key) {
-    var tempRef = database.ref("/users/" + userId + "/upVoted/" + key);
-    tempRef.remove();
-    $("#num" + key).text(parseInt($("#num" + key).text()) - 1);
-    $("#" + key).removeClass("is-danger");
-    
-    upvoteStatus = true;
+    try {
+        var tempRef = database.ref("/users/" + userId + "/upVoted/" + key);
+        tempRef.remove();
+        $("#num" + key).text(parseInt($("#num" + key).text()) - 1);
+        $("#" + key).removeClass("is-danger");
+        updateUpVoteCount(key, "subtract");
+        upvoteStatus = true;
+    }
+    catch (e) {
+        toastr.error("This is most likely because you are not logged in, or you are a cheater.", "Error unvoting.")
+    }
 }
 
 function upVoteProject(userId, key) {
-    var addUpVoteRef = database.ref("/users/" + userId + "/upVoted/" + key);
-    var updates = {
-        name: key
-    };
-    updateUpVoteCount(key, "add");
-    $("#num" + key).text(parseInt($("#num" + key).text()) + 1);
-    addUpVoteRef.update(updates);
+    try {
+        var addUpVoteRef = database.ref("/users/" + userId + "/upVoted/" + key);
+        var updates = {
+            name: key
+        };
+        updateUpVoteCount(key, "add");
+        $("#num" + key).text(parseInt($("#num" + key).text()) + 1);
+        addUpVoteRef.update(updates);
 
 
-    $("#" + key).addClass("is-danger");
+        $("#" + key).addClass("is-danger");
 
-    upvoteStatus = true;
+        upvoteStatus = true;
+    } catch (e) {
+        toastr.error("This is most likely because you are not logged in, or you are a cheater.", "Error upvoting.")
+    }
 }
 
 function updateUpVoteCount(key, state) {
