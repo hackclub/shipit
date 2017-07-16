@@ -1,18 +1,6 @@
 var shipment = $("#shipment-templ").html();
 var template = Handlebars.compile(shipment);
 
-//Sample - To be replaced by GET db content
-//         {
-//         author: "zachlatta",
-//         name: "Hack Club",
-//         timestamp: "11:09 PM - 7 Jul 2017",
-//         desc: "We help high schoolers start awesome after-school coding clubs!",
-//         link: "https://hackclub.com",
-//         code: "https://github.com/hackclub/hackclub",
-//         upvote: 255
-//         uuid: 125121
-//         }
-
 function loadShipment(id) {
     $("#shipped-placeholder").hide();
     $("#shipped").prepend(template(id));
@@ -46,3 +34,9 @@ function shareShipment(uid) {
 function shareTwitter() {
     window.location.href = "http://twitter.com/share?text=I found a wonderful project created by a Hack Club member!&url=" + $("#share-id").attr("value") + "&via=starthackclub&related=starthackclub";
 }
+
+$.get("https://api.github.com/repos/mj66/shipit-frontend/commits", function (data, status) {
+    $("#commit-id").html(data[0].sha);
+    $("#commit-id").attr("href", data[0].html_url);
+    $("#commit-id").attr("title", data[0].commit.message);
+});
