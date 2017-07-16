@@ -97,7 +97,11 @@ function getParams(name, url) {
 }
 
 $(function () {
-    new Clipboard('#copy-share-link');
+    var clipboard = new Clipboard('#copy-share-link');
+    clipboard.on('success', function (e) {
+        toastr.success("Link successfully copied to clipboard!");
+    });
+
     var shared = getParams("shared");
     if (shared != null) {
         getProp(shared);
