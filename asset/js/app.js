@@ -72,6 +72,8 @@ function isLoggedOut() {
 }
 
 function isLoggedIn(user, token) {
+    firstName = firebase.auth().currentUser.displayName.split(" ")[0];
+    
     $("#gh-login").hide();
     $("#gh-logout").show();
 

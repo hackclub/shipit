@@ -1,6 +1,15 @@
 var shipment = $("#shipment-templ").html();
 var template = Handlebars.compile(shipment);
 
+toastr.options.showMethod = 'slideDown';
+toastr.options.hideMethod = 'slideUp';
+toastr.options.closeMethod = 'slideUp';
+toastr.options.showEasing = 'swing';
+toastr.options.hideEasing = 'linear';
+toastr.options.closeEasing = 'linear';
+
+toastr.options.closeButton = true;
+
 function loadShipment(id) {
     $("#shipped-placeholder").hide();
     $("#shipped").prepend(template(id));
