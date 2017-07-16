@@ -351,4 +351,3 @@ function loadMoreProjects(timestamp) {
         console.log(snapshot.val())
     });
 }
-}
