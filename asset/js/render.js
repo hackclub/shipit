@@ -17,6 +17,7 @@ function loadShipment(id) {
 
 $("#launch").on("click", openShipper);
 $(".modal-close").on("click", closeShipper);
+$(".modal-background").on("click", closeShipper);
 
 function openShipper() {
     console.log(firebase.auth().currentUser);
