@@ -34,8 +34,10 @@ function githubSignin() {
     firebase.auth().signInWithPopup(provider)
 
         .then(function (result) {
+            firstName = firebase.auth().currentUser.displayName.split(" ")[0];
             checkForFirstTime(firebase.auth().currentUser.uid);
             //User Sucessfully Logged In
+            toastr.success("Welcome, " + firstName + "!", "Successfully logged in.");
 
         }).catch(function (error) {
             var errorCode = error.code;
@@ -76,9 +78,7 @@ function isLoggedIn(user, token) {
     closeShipper();
 
     $("#userName").html(user.displayName);
-    firstName = (user.displayName).split(" ");
-    $("#fname-header").html(firstName[0] + ", t");
-    toastr.success("Welcome, " + firstName[0] + "!", "Successfully logged in.");
+    $("#fname-header").html(firstName + ", t");
     $("#useravatar").attr("src", user.photoURL);
     loadUpVotedProjects(firebase.auth().currentUser.uid);
 
@@ -250,7 +250,7 @@ function upVoteProject(userId, key) {
         var updates = {
             name: key
         };
-        updateUpVoteCount(key, "add"); 
+        updateUpVoteCount(key, "add");
         $("#num" + key).removeClass("is-light");
         $("#num" + key).addClass("is-danger");
         $("#num" + key).text(parseInt($("#num" + key).text()) + 1);
