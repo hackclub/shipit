@@ -9,17 +9,6 @@ textarea {
 
 .shipit {
     color: #E42D40!important;
-}@import url('https://fonts.googleapis.com/css?family=Acme');
-body,
-button,
-input,
-select,
-textarea {
-    font-family: Acme, BlinkMacSystemFont, -apple-system, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-.shipit {
-    color: #E42D40!important;
 }
 
 
@@ -95,46 +84,4 @@ a.card-footer-item.is-danger {
 
 .wabble:hover::after {
     opacity: 1;
-}
-
-.shipped .container {
-    padding: 5px;
-    margin-top: 10px;
-}
-
-a {
-    color: #E42D40;
-    -o-transition: color .2s ease-out, background 1s ease-in;
-    -ms-transition: color .2s ease-out, background 1s ease-in;
-    -moz-transition: color .2s ease-out, background 1s ease-in;
-    -webkit-transition: color .2s ease-out, background 1s ease-in;
-    transition: color .2s ease-out, background 1s ease-in;
-}
-
-a:hover {
-    color: #921D29;
-}
-
-.shipment .subtitle:not(:last-child),
-.shipment .title:not(:last-child) {
-    margin-bottom: 0;
-}
-
-.banner .hero-body {
-    padding: 0.75em;
-}
-
-.footer {
-    margin-top: 20px;
-    padding: 3rem 2rem 3rem;
-}
-
-.hero.is-danger, .button.is-danger {
-    background-color: #E42D40;
-}
-
-a.card-footer-item.is-danger{
-    border-style: solid;
-    border-width: 1px;
-    border-color: #E42D40;
 }
