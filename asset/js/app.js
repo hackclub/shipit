@@ -20,6 +20,7 @@ const databaseRef = database.ref("/");
 
 var isConnected, upvoteStatus = true;
 var projectsDisplayed = [];
+var firstName;
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -36,7 +37,7 @@ function githubSignin() {
             checkForFirstTime(firebase.auth().currentUser.uid);
             //User Sucessfully Logged In
 
-            toastr.success("Welcome, " + name[0] + "!", "Successfully logged in.");
+            toastr.success("Welcome, " + firstName[0] + "!", "Successfully logged in.");
         }).catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -76,8 +77,8 @@ function isLoggedIn(user, token) {
     closeShipper();
 
     $("#userName").html(user.displayName);
-    var name = (user.displayName).split(" ");
-    $("#fname-header").html(name[0] + ", t");
+    firstName = (user.displayName).split(" ");
+    $("#fname-header").html(firstName[0] + ", t");
     $("#useravatar").attr("src", user.photoURL);
     loadUpVotedProjects(firebase.auth().currentUser.uid);
 
