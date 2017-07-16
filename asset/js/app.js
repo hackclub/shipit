@@ -77,8 +77,8 @@ function isLoggedIn(user, token) {
 
     $("#userName").html(user.displayName);
     firstName = (user.displayName).split(" ");
-    toastr.success("Welcome, " + firstName[0] + "!", "Successfully logged in.");
     $("#fname-header").html(firstName[0] + ", t");
+    toastr.success("Welcome, " + firstName[0] + "!", "Successfully logged in.");
     $("#useravatar").attr("src", user.photoURL);
     loadUpVotedProjects(firebase.auth().currentUser.uid);
 
@@ -234,7 +234,8 @@ function unVoteProject(userId, key) {
         var tempRef = database.ref("/users/" + userId + "/upVoted/" + key);
         tempRef.remove();
         $("#num" + key).text(parseInt($("#num" + key).text()) - 1);
-        $("#" + key).removeClass("is-danger");
+        $("#num" + key).removeClass("is-danger");
+        $("#num" + key).addClass("is-light");
         updateUpVoteCount(key, "subtract");
         upvoteStatus = true;
     }
@@ -249,12 +250,11 @@ function upVoteProject(userId, key) {
         var updates = {
             name: key
         };
-        updateUpVoteCount(key, "add");
+        updateUpVoteCount(key, "add"); 
+        $("#num" + key).removeClass("is-light");
+        $("#num" + key).addClass("is-danger");
         $("#num" + key).text(parseInt($("#num" + key).text()) + 1);
         addUpVoteRef.update(updates);
-
-
-        $("#" + key).addClass("is-danger");
 
         upvoteStatus = true;
     } catch (e) {
@@ -337,7 +337,8 @@ function loadUpVotedProjects(userId) {
 
 function crossCheckProjects(key) {
     if (projectsDisplayed.indexOf(key) != -1) {
-        $("#" + key).addClass("is-danger");
+        $("#num" + key).removeClass("is-light");
+        $("#num" + key).addClass("is-danger");
     }
 }
 
