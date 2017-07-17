@@ -48,9 +48,19 @@
             </span>
         </div>
         <div class="navbar-end">
-            <div class="navbar-item">
+            <div id="logged-out-user" class="navbar-item">
+                <span>Not Logged In</span>
+            </div>
+
+            <div id="logged-in-user" class="navbar-item" style="display: none">
                 <img id="useravatar"> &nbsp;
-                <span id="userName">Not Signed In</span>
+                <span id="userName">Undefined</span>
+
+                <div class="navbar-dropdown" id="account-menu">
+                    <a class="navbar-item"><i class="fa fa-user"></i>&nbsp;My Projects</a>
+
+                    <a class="navbar-item" onclick="showUpvotedPage()"><i class="fa fa-heart"></i>&nbsp;Liked Projects</a>
+                </div>
             </div>
             <div class="navbar-item">
                 <div class="field is-grouped">
@@ -233,7 +243,7 @@
                                     <p>The share link is...</p>
                                     <div class="columns">
                                         <!--<div class="column is-10">-->
-                                            <input class="input" id="share-id{{uid}}" type="text" value="https://shipit.tech/?shared={{uid}}">
+                                        <input class="input" id="share-id{{uid}}" type="text" value="https://shipit.tech/?shared={{uid}}">
                                         <!--</div>
                                         <div class="column is-2">
                                             <button id="copy-share-link{{uid}}" class="button" data-clipboard-target="#share-id{{uid}}"><i class="fa fa-clipboard"></i>&nbsp;Copy</button>

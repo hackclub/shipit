@@ -67,8 +67,8 @@ function isLoggedOut() {
     $("#gh-login").show();
     $("#gh-logout").hide();
 
-    $("#userName").html("Not Signed In");
-    $("#useravatar").attr("src", "");
+    $("#logged-in-user").hide();
+    $("#logged-out-user").show();
 }
 
 function isLoggedIn(user, token) {
@@ -84,6 +84,8 @@ function isLoggedIn(user, token) {
     $("#useravatar").attr("src", user.photoURL);
     loadUpVotedProjects(firebase.auth().currentUser.uid);
 
+    $("#logged-in-user").show();
+    $("#logged-out-user").hide();
 }
 
 function getParams(name, url) {
@@ -351,4 +353,14 @@ function loadMoreProjects(timestamp) {
         displayProjects(snapshot.val(), snapshot.key);
         console.log(snapshot.val())
     });
+}
+
+function showUpvotedPage() {
+    $("#shipped").html("");
+    var checkRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/upVoted/");
+    checkRef.once('value', function (snapshot) {
+        
+    });
+
+    //Sean: Complete this section
 }

@@ -27,6 +27,12 @@ function loadShipment(id) {
 
 $("#launch").on("click", openShipper);
 
+$("#logged-in-user").on("click", triggerAccountMenu);
+
+function triggerAccountMenu() {
+    $("#account-menu").slideToggle();
+}
+
 function openShipper() {
     console.log(firebase.auth().currentUser);
     if (firebase.auth().currentUser != null) {
