@@ -92,38 +92,6 @@
         </div>
     </section>
 
-    <div class="modal" id="share-modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Share
-                    </p>
-                </header>
-                <div class="card-content">
-                    <div class="content">
-                        <p>Share this project with your friends on social media!</p>
-                        <p>The share link is...</p>
-                        <div class="columns">
-                            <div class="column is-10">
-                                <input class="input" id="share-id" type="text" value="">
-                            </div>
-                            <div class="column is-2">
-                                <button id="copy-share-link" class="button" data-clipboard-target="#share-id"><i class="fa fa-clipboard"></i>&nbsp;Copy</button>
-                            </div>
-                        </div>
-                        <div class="has-text-centered">
-                            <a href="#" onclick="shareTwitter()">
-                                <i class="fa fa-2x fa-twitter"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="modal-close is-large" id="unlaunch"></button>
-    </div>
 
     <div class="modal" id="login-modal">
         <div class="modal-background"></div>
@@ -251,6 +219,38 @@
                     </footer>
                 </div>
                 <br />
+                <div class="modal" id="share-modal{{uid}}">
+                    <div class="modal-background"></div>
+                    <div class="modal-content">
+                        <div class="card">
+                            <header class="card-header">
+                                <p class="card-header-title">
+                                    Share {{title}}
+                                </p>
+                            </header>
+                            <div class="card-content">
+                                <div class="content">
+                                    <p>Share this project with your friends on social media!</p>
+                                    <p>The share link is...</p>
+                                    <div class="columns">
+                                        <!--<div class="column is-10">-->
+                                            <input class="input" id="share-id{{uid}}" type="text" value="https://shipit.tech/?shared={{uid}}">
+                                        <!--</div>
+                                        <div class="column is-2">
+                                            <button id="copy-share-link{{uid}}" class="button" data-clipboard-target="#share-id{{uid}}"><i class="fa fa-clipboard"></i>&nbsp;Copy</button>
+                                        </div>-->
+                                    </div>
+                                    <div class="has-text-centered">
+                                        <a href="http://twitter.com/share?text=Another wonderful project by a Hack Club member: {{name}}!&url=https://shipit.tech/?shared={{uid}}&via=starthackclub&related=starthackclub">
+                                            <i class="fa fa-2x fa-twitter"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="modal-close is-large" id="unlaunch"></button>
+                </div>
             </script>
             <div class="card" id="shipped-placeholder">
                 <div class="card-content">

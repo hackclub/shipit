@@ -13,11 +13,19 @@ toastr.options.closeButton = true;
 function loadShipment(id) {
     $("#shipped-placeholder").hide();
     $("#shipped").prepend(template(id));
+
+    /*var sid = "#copy-share-link" + id;
+    var clipboard = new Clipboard(sid);
+    clipboard.on('success', function (e) {
+        toastr.success("Link successfully copied to clipboard!");
+    });*/
+
+    $(".modal-close").on("click", closeShipper);
+    $(".modal-background").on("click", closeShipper);
+
 }
 
 $("#launch").on("click", openShipper);
-$(".modal-close").on("click", closeShipper);
-$(".modal-background").on("click", closeShipper);
 
 function openShipper() {
     console.log(firebase.auth().currentUser);
@@ -37,12 +45,7 @@ function closeShipper() {
 }
 
 function shareShipment(uid) {
-    $("#share-id").attr("value", "https://shipit.tech/?shared=" + uid);
-    $("#share-modal").addClass("is-active");
-}
-
-function shareTwitter() {
-    window.location.href = "http://twitter.com/share?text=I found a wonderful project created by a Hack Club member!&url=" + $("#share-id").attr("value") + "&via=starthackclub&related=starthackclub";
+    $("#share-modal" + uid).addClass("is-active");
 }
 
 $.get("https://api.github.com/repos/mj66/shipit-frontend/commits", function (data, status) {
