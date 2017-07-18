@@ -356,10 +356,11 @@ function loadMoreProjects(timestamp) {
 }
 
 function showUpvotedPage() {
+    displayProjects = [];
     $("#shipped").html("");
     var checkRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/upVoted/");
     checkRef.once('value', function (snapshot) {
-        
+        displayProjects(snapshot.val(), snapshot.key);
     });
 
     //Sean: Complete this section
