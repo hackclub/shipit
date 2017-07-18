@@ -356,12 +356,21 @@ function loadMoreProjects(timestamp) {
 }
 
 function showUpvotedPage() {
-    displayProjects = [];
+    projectsDisplayed = [];
     $("#shipped").html("");
     var checkRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/upVoted/");
     checkRef.once('value', function (snapshot) {
-        displayProjects(snapshot.val(), snapshot.key);
+        getProjectsFromKey(Object.keys(snapshot.val()));
     });
 
     //Sean: Complete this section
+}
+
+function getProjectsFromKey(keys) {
+    for(i = 0; i < keys.length; i++) {
+        var projectRef = database.ref("/projects/" + keys[i]);
+        projectsRef.once("value", function(snapshot) {
+            displayProjects(snapshot.val(), snapshot.key);
+        });
+    }
 }
