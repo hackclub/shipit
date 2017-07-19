@@ -128,19 +128,23 @@ connectedRef.on("value", function (snapshot) {
 
 
 function displayProjects(data, key) {
-    projectsDisplayed.push(key);
-    var newProject = {
-        author: data.author,
-        name: data.name,
-        timestamp: convertTimestamp(data.timestamp),
-        desc: data.desc,
-        link: data.link,
-        code: data.code,
-        upvote: data.upvote,
-        uid: key
+    try {
+        projectsDisplayed.push(key);
+        var newProject = {
+            author: data.author,
+            name: data.name,
+            timestamp: convertTimestamp(data.timestamp),
+            desc: data.desc,
+            link: data.link,
+            code: data.code,
+            upvote: data.upvote,
+            uid: key
+        }
+        $("#loadButton").attr("onclick", "loadMoreProjects('" + data.timestamp + "')")
+        loadShipment(newProject);
+    } catch (e) {
+        toastr.warning("Unknown error occured. The content is successfully rendered.")
     }
-    $("#loadButton").attr("onclick", "loadMoreProjects('" + data.timestamp + "')")
-    loadShipment(newProject);
 }
 
 function createProject() {
@@ -194,7 +198,7 @@ function createProject() {
 }
 
 function checkIfValidURL(value, ssl) {
-    return value.substring(0,4) == "http"
+    return value.substring(0, 4) == "http"
 }
 
 function convertTimestamp(id) {
@@ -356,7 +360,7 @@ function loadMoreProjects(timestamp) {
 }
 
 function showUpvotedPage() {
-    
+
     $("#loadButton").hide();
     $("#title-banner").html("Your upvoted collection...")
 
@@ -364,17 +368,17 @@ function showUpvotedPage() {
     $("#shipped").html("");
     var checkRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/upVoted/");
     checkRef.once('value', function (snapshot) {
-        snapshot.forEach(function(data){
+        snapshot.forEach(function (data) {
             getProjectsFromKey(data.val())
         });
     });
-    
+
 }
 
 function getProjectsFromKey(keys) {
     //console.log(keys)
     var testRef = database.ref("projects/" + keys.name);
-    testRef.once("value", function(snapshot) {
+    testRef.once("value", function (snapshot) {
         displayProjects(snapshot.val(), snapshot.key);
         $("#num" + snapshot.key).removeClass("is-light");
         $("#num" + snapshot.key).addClass("is-danger");
