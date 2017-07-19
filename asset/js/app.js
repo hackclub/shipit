@@ -356,21 +356,27 @@ function loadMoreProjects(timestamp) {
 }
 
 function showUpvotedPage() {
+    
+    $("#loadButton").hide();
+    $("#title-banner").html("Your upvoted collection...")
+
     projectsDisplayed = [];
     $("#shipped").html("");
     var checkRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/upVoted/");
     checkRef.once('value', function (snapshot) {
-        getProjectsFromKey(Object.keys(snapshot.val()));
+        snapshot.forEach(function(data){
+            getProjectsFromKey(data.val())
+        });
     });
-
-    //Sean: Complete this section
+    
 }
 
 function getProjectsFromKey(keys) {
-    for(i = 0; i < keys.length; i++) {
-        var projectRef = database.ref("/projects/" + keys[i]);
-        projectsRef.once("value", function(snapshot) {
-            displayProjects(snapshot.val(), snapshot.key);
-        });
-    }
+    //console.log(keys)
+    var testRef = database.ref("projects/" + keys.name);
+    testRef.once("value", function(snapshot) {
+        displayProjects(snapshot.val(), snapshot.key);
+        $("#num" + snapshot.key).removeClass("is-light");
+        $("#num" + snapshot.key).addClass("is-danger");
+    });
 }
