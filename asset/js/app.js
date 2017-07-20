@@ -183,6 +183,9 @@ function createProject() {
                     featured: "false",
                     uid: firebase.auth().currentUser.uid
                 });
+                for (var i = 0; i < inputs.length; i++) {
+                    inputs[i].value = "";
+                }
                 closeShipper();
             }
             else {
