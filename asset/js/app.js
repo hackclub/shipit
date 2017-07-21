@@ -145,7 +145,8 @@ function displayProjects(data, key) {
         $("#loadButton").attr("onclick", "loadMoreProjects('" + data.timestamp + "')")
         loadShipment(newProject);
     } catch (e) {
-        toastr.warning("Unknown error occured. The content is successfully rendered.")
+        console.log("Warning: Unknown error occured. The content is successfully rendered.");
+        console.log(e);
     }
 }
 
