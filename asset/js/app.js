@@ -86,6 +86,8 @@ function isLoggedIn(user, token) {
 
     $("#logged-in-user").show();
     $("#logged-out-user").hide();
+
+    initShipper();
 }
 
 function getParams(name, url) {
@@ -183,9 +185,7 @@ function createProject() {
                     featured: "false",
                     uid: firebase.auth().currentUser.uid
                 });
-                for (var i = 0; i < inputs.length; i++) {
-                    inputs[i].value = "";
-                }
+                initShipper();
                 closeShipper();
             }
             else {
@@ -197,6 +197,18 @@ function createProject() {
         }
     } else {
         //Mingjie work some css magic or something
+    }
+}
+
+function initShipper() {
+    var inputs = [document.getElementById("author"), document.getElementById("name"), document.getElementById("description"), document.getElementById("liveLink"), document.getElementById("codeLink"), document.getElementById("username")];
+
+    if (firebase.auth().currentUser != null) {
+        inputs[0].value = firebase.auth().currentUser.displayName;
+    }
+
+    for (var i = 0; i < inputs.length; i++) {
+        inputs[i].value = "";
     }
 }
 
