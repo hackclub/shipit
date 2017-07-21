@@ -187,7 +187,7 @@ function createProject() {
                     uid: firebase.auth().currentUser.uid
                 });
                 closeShipper();
-                
+
                 initShipper();
             }
             else {
@@ -203,12 +203,18 @@ function createProject() {
 }
 
 function initShipper() {
-    for (var i = 0; i < inputs.length; i++) {
-        inputs[i].value = "";
-    }
 
-    if (firebase.auth().currentUser != null) {
-        document.getElementById("author").value = firebase.auth().currentUser.displayName;
+    var inputs = [document.getElementById("author"), document.getElementById("name"), document.getElementById("description"), document.getElementById("liveLink"), document.getElementById("codeLink"), document.getElementById("username")];
+
+    for (var i = 0; i < inputs.length; i++) {
+        if (i != 0) {
+            inputs[i].value = "";
+        }
+        else {
+            if (firebase.auth().currentUser != null) {
+                document.getElementById("author").value = firebase.auth().currentUser.displayName;
+            }
+        }
     }
 }
 
