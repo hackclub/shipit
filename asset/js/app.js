@@ -186,8 +186,9 @@ function createProject() {
                     featured: "false",
                     uid: firebase.auth().currentUser.uid
                 });
-                initShipper();
                 closeShipper();
+                
+                initShipper();
             }
             else {
                 toastr.error("You are not logged in... Cheater!");
@@ -202,14 +203,12 @@ function createProject() {
 }
 
 function initShipper() {
-    var inputs = [document.getElementById("author"), document.getElementById("name"), document.getElementById("description"), document.getElementById("liveLink"), document.getElementById("codeLink"), document.getElementById("username")];
-
-    if (firebase.auth().currentUser != null) {
-        inputs[0].value = firebase.auth().currentUser.displayName;
-    }
-
     for (var i = 0; i < inputs.length; i++) {
         inputs[i].value = "";
+    }
+
+    if (firebase.auth().currentUser != null) {
+        document.getElementById("author").value = firebase.auth().currentUser.displayName;
     }
 }
 
