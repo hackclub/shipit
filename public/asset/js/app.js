@@ -156,36 +156,36 @@ function displayProjects(data, key) {
 
 function createProject() {
     if (isConnected == true) {
-        var inputs = [document.getElementById("author"), document.getElementById("name"), document.getElementById("description"), document.getElementById("liveLink"), document.getElementById("codeLink"), document.getElementById("username")];
+        var inputs = ["author", "name", "description", "liveLink", "codeLink", "username"];
         var completed = true;
         for (var i = 0; i < inputs.length - 1; i++) {
-            inputs[i].className = "input";
-            if (inputs[i].value == "" || undefined || null) {
-                inputs[i].className += " is-danger";
+            $("#" + inputs[i]).attr('class', 'input');
+            if (!$("#" + inputs[i]).val()) {
+                $("#" + inputs[i]).addClass('is-danger');
                 completed = false;
             }
         }
-        if (inputs[5].value) {
+        if (!$("#" + inputs[5]).val()) {
             completed = false;
         }
-        if (!checkIfValidURL(inputs[3].value)) {
+        if (!checkIfValidURL($("#" + inputs[3]).val())) {
             completed = false;
-            inputs[3].className += " is-danger";
+            $("#" + inputs[3]).addClass('is-danger');
         }
-        if (!checkIfValidURL(inputs[4].value)) {
+        if (!checkIfValidURL($("#" + inputs[4]).val())) {
             completed = false;
-            inputs[4].className += " is-danger";
+            $("#" + inputs[4]).addClass('is-danger');
         }
         if (completed) {
             if (firebase.auth().currentUser != null) {
                 var newProjectRef = projectsRef.push();
                 newProjectRef.set({
-                    author: inputs[0].value,
-                    name: inputs[1].value,
+                    author: $("#" + inputs[0]).val(),
+                    name:   $("#" + inputs[1]).val(),
                     timestamp: getTimeStamp(),
-                    desc: inputs[2].value,
-                    link: inputs[3].value,
-                    code: inputs[4].value,
+                    desc:   $("#" + inputs[2]).val(),
+                    link:   $("#" + inputs[3]).val(),
+                    code:   $("#" + inputs[4]).val(),
                     upvote: 0,
                     featured: "false",
                     uid: firebase.auth().currentUser.uid
@@ -207,16 +207,16 @@ function createProject() {
 }
 
 function initShipper() {
-
-    var inputs = [document.getElementById("author"), document.getElementById("name"), document.getElementById("description"), document.getElementById("liveLink"), document.getElementById("codeLink"), document.getElementById("username")];
+    
+    var inputs = ["author", "name", "description", "liveLink", "codeLink", "username"];
 
     for (var i = 0; i < inputs.length; i++) {
         if (i != 0) {
-            inputs[i].value = "";
+            $("#" + inputs[i]).val("")
         }
         else {
             if (firebase.auth().currentUser != null) {
-                document.getElementById("author").value = firebase.auth().currentUser.displayName;
+                $("#" + inputs[0]).val(firebase.auth().currentUser.displayName)
             }
         }
     }
