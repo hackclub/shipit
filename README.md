@@ -1,5 +1,5 @@
 # Hack Club Shipit Platform!
-### Welcome to the new era of spaghetti one-pager. By @jsneak & @mj66
+### Welcome to the new era of spaghetti one-pager. By [**@jsneak**](https://github.com/JSneak) & [**@mj66**](https://github.com/mj66)
 
 Hello fellow Hackerz!
 
