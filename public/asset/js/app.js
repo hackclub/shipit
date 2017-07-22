@@ -207,16 +207,16 @@ function createProject() {
 }
 
 function initShipper() {
-
-    var inputs = [document.getElementById("author"), document.getElementById("name"), document.getElementById("description"), document.getElementById("liveLink"), document.getElementById("codeLink"), document.getElementById("username")];
+    
+    var inputs = ["author", "name", "description", "liveLink", "codeLink", "username"];
 
     for (var i = 0; i < inputs.length; i++) {
         if (i != 0) {
-            inputs[i].value = "";
+            $("#" + inputs[i]).val("")
         }
         else {
             if (firebase.auth().currentUser != null) {
-                document.getElementById("author").value = firebase.auth().currentUser.displayName;
+                $("#" + inputs[0]).val(firebase.auth().currentUser.displayName)
             }
         }
     }
