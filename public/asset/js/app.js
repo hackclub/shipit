@@ -21,6 +21,7 @@ const databaseRef = database.ref("/");
 var isConnected, upvoteStatus = true;
 var projectsDisplayed = [];
 var firstName;
+var firstKnownKey;
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -109,6 +110,9 @@ $(function () {
         });
     } else {
         query.limitToLast(10).on("child_added", function (snapshot) {
+            if (!firstKnownKey) {
+              firstKnownKey = snapshot.key;
+            }
             displayProjects(snapshot.val(), snapshot.key);
         });
     }
@@ -373,10 +377,11 @@ function crossCheckProjects(key) {
 }
 
 function loadMoreProjects(timestamp) {
-    //,displayProjects[displayProjects.length-1]
-    query.startAt(timestamp, displayProjects[displayProjects.length - 1]).limitToLast(6).on("child_added", function (snapshot) {
-        displayProjects(snapshot.val(), snapshot.key);
-        console.log(snapshot.val())
+    query.endAt(firstKnownKey).limitToLast(5).on('child_added', function(snapshot, prevChildKey) {
+        if (!firstKnownKey) {
+          firstKnownKey = snapshot.key;
+        }
+        displayProjects(snapshot.val(), snapshot.key); // adds post to a <div>
     });
 }
 
