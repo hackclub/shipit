@@ -165,7 +165,7 @@ function createProject() {
                 completed = false;
             }
         }
-        if (!$("#" + inputs[5]).val()) {
+        if ($("#" + inputs[5]).val()) {
             completed = false;
         }
         if (!checkIfValidURL($("#" + inputs[3]).val())) {
