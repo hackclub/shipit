@@ -7,6 +7,10 @@ textarea {
     font-family: 'Roboto', BlinkMacSystemFont, -apple-system, "Segoe UI", Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+#main {
+    margin-top: 3.25rem;
+}
+
 .shipit {
     color: #E42D40!important;
 }
@@ -47,6 +51,7 @@ a:hover {
 .button.is-danger, 
 .navbar {
     background-color: #E42D40;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
 }
 
 .navbar a:hover {
@@ -56,6 +61,14 @@ a:hover {
 
 .navbar span {
     color: #ffffff;
+}
+
+.navbar {
+    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%; /* Full width */
+    z-index: 2;
 }
 
 #gh-login, #gh-logout {
@@ -92,6 +105,13 @@ a.card-footer-item.is-danger {
 .wabble:hover {
     -webkit-transform: scale(1.035, 1.035);
     transform: scale(1.035, 1.035);
+}
+
+.wabble:active {
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+    box-shadow: 0 5px 10px rgba(10, 10, 10, .3), 0 0 0 1px rgba(10, 10, 10, 0);
+    -webkit-box-shadow: 0 5px 10px rgba(10, 10, 10, .3), 0 0 0 1px rgba(10, 10, 10, 0);
 }
 
 .wabble:hover::after {

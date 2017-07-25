@@ -80,219 +80,223 @@
         </div>
     </nav>
 
-    <section class="hero is-danger is-small">
-        <div class="hero-body">
-            <div class="container">
-                <div class="columns">
-                    <div class="column is-three-quarters">
-                        <h1 class="title">
-                            <span id="fname-header">T</span>hink your hack is ready?
-                            <strong class="shipit">Shipit!</strong>
-                        </h1>
-                        <h2 class="subtitle">
-                            Share it with the Hack Club community world-wide.
-                        </h2>
-                    </div>
-                    <div class="column is-one-quarter ">
-                        <a class="button is-large is-light is-pulled-right wabble" id="launch"><i class="fa fa-paper-plane"></i>&ensp;Ship Your Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div id="main">
 
-
-    <div class="modal" id="login-modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Please log in to continue
-                    </p>
-                </header>
-                <div class="card-content">
-                    <div class="content">
-                        <p>Please log in with your GitHub account! We will create your unique user identity once you are logged
-                            into GitHub. Don't worry, we won't hack into your GitHub account. <i>Right?</i></p>
-                        <div class="has-text-centered">
-                            <a class="button is-dark wabble" id="gh-login-forced" href="#" onclick="githubSignin()">
-                                <span class="icon"><i class="fa fa-github"></i></span>
-                                <span>Sign In</span>
-                            </a>
-                        </div>
-                        <br />
-                        <p>If you do not have a GitHub account yet, which we will then blame your club leader, please <a href="https://github.com/join"
-                                target="_blank">create
-                            one now</a>!</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="modal-close is-large" id="unlaunch"></button>
-    </div>
-
-    <div class="modal" id="ship-modal">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Ship a new project!
-                    </p>
-                </header>
-                <div class="card-content">
-                    <div class="content">
-                        <div class="field">
-                            <label class="label">Name</label>
-                            <p class="control">
-                                <input class="input" type="text" id="name" placeholder="Prophet Orpheus's prophecy">
-                            </p>
-                        </div>
-                        <div class="field">
-                            <label class="label">Hacked by...</label>
-                            <p class="control">
-                                <input class="input" type="text" id="author" placeholder="Prophet Orpheus">
-                            </p>
-                        </div>
-                        <div class="field">
-                            <label class="label">Description</label>
-                            <p class="control">
-                                <input class="input" type="text" id="description" placeholder="The darkness is coming... this will prevent such doings.">
-                            </p>
-                        </div>
-                        <div class="field">
-                            <label class="label">Live Link</label>
-                            <p class="control">
-                                <input class="input" type="text" id="liveLink" placeholder="https://hackclub.com/">
-                            </p>
-                        </div>
-                        <div class="field">
-                            <label class="label">Code Link</label>
-                            <p class="control">
-                                <input class="input" type="text" id="codeLink" placeholder="https://github.com/hackclub/hackclub">
-                            </p>
-                        </div>
-                        <div class="field" style="display: none">
-                            <label class="label">Honey, don't fill me!</label>
-                            <p class="control">
-                                <input class="input" type="text" id="username">
-                            </p>
-                        </div>
-                        <p class="control">
-                            <input class="button is-danger wabble" type="button" onClick="createProject()" value="Ship your project!">
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="modal-close is-large" id="unlaunch"></button>
-    </div>
-
-    <section class="shipped">
-        <section class="hero is-light banner">
+        <section class="hero is-danger is-small">
             <div class="hero-body">
                 <div class="container">
-                    <h1 class="title is-4" id="title-banner">
-                        Recently shipped...
-                    </h1>
+                    <div class="columns">
+                        <div class="column is-three-quarters">
+                            <h1 class="title">
+                                <span id="fname-header">T</span>hink your hack is ready?
+                                <strong class="shipit">Shipit!</strong>
+                            </h1>
+                            <h2 class="subtitle">
+                                Share it with the Hack Club community world-wide.
+                            </h2>
+                        </div>
+                        <div class="column is-one-quarter ">
+                            <a class="button is-large is-light is-pulled-right wabble" id="launch"><i class="fa fa-paper-plane"></i>&ensp;Ship Your Project</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-        <div class="container" id="shipped">
-            <!-- Start Shipped UI -->
-            <script id="shipment-templ" type="text/x-handlebars-template">
-                <div class="card wabble">
+
+
+        <div class="modal" id="login-modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="card">
                     <header class="card-header">
                         <p class="card-header-title">
-                            @{{author}}
+                            Please log in to continue
                         </p>
-                        <a class="card-header-icon">
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <p>Please log in with your GitHub account! We will create your unique user identity once you are
+                                logged into GitHub. Don't worry, we won't hack into your GitHub account. <i>Right?</i></p>
+                            <div class="has-text-centered">
+                                <a class="button is-dark wabble" id="gh-login-forced" href="#" onclick="githubSignin()">
+                                <span class="icon"><i class="fa fa-github"></i></span>
+                                <span>Sign In</span>
+                            </a>
+                            </div>
+                            <br />
+                            <p>If you do not have a GitHub account yet, which we will then blame your club leader, please
+                                <a
+                                    href="https://github.com/join" target="_blank">create one now</a>!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="modal-close is-large" id="unlaunch"></button>
+        </div>
+
+        <div class="modal" id="ship-modal">
+            <div class="modal-background"></div>
+            <div class="modal-content">
+                <div class="card">
+                    <header class="card-header">
+                        <p class="card-header-title">
+                            Ship a new project!
+                        </p>
+                    </header>
+                    <div class="card-content">
+                        <div class="content">
+                            <div class="field">
+                                <label class="label">Name</label>
+                                <p class="control">
+                                    <input class="input" type="text" id="name" placeholder="Prophet Orpheus's prophecy">
+                                </p>
+                            </div>
+                            <div class="field">
+                                <label class="label">Hacked by...</label>
+                                <p class="control">
+                                    <input class="input" type="text" id="author" placeholder="Prophet Orpheus">
+                                </p>
+                            </div>
+                            <div class="field">
+                                <label class="label">Description</label>
+                                <p class="control">
+                                    <input class="input" type="text" id="description" placeholder="The darkness is coming... this will prevent such doings.">
+                                </p>
+                            </div>
+                            <div class="field">
+                                <label class="label">Live Link</label>
+                                <p class="control">
+                                    <input class="input" type="text" id="liveLink" placeholder="https://hackclub.com/">
+                                </p>
+                            </div>
+                            <div class="field">
+                                <label class="label">Code Link</label>
+                                <p class="control">
+                                    <input class="input" type="text" id="codeLink" placeholder="https://github.com/hackclub/hackclub">
+                                </p>
+                            </div>
+                            <div class="field" style="display: none">
+                                <label class="label">Honey, don't fill me!</label>
+                                <p class="control">
+                                    <input class="input" type="text" id="username">
+                                </p>
+                            </div>
+                            <p class="control">
+                                <input class="button is-danger wabble" type="button" onClick="createProject()" value="Ship your project!">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="modal-close is-large" id="unlaunch"></button>
+        </div>
+
+        <section class="shipped">
+            <section class="hero is-light banner">
+                <div class="hero-body">
+                    <div class="container">
+                        <h1 class="title is-4" id="title-banner">
+                            Recently shipped...
+                        </h1>
+                    </div>
+                </div>
+            </section>
+            <div class="container" id="shipped">
+                <!-- Start Shipped UI -->
+                <script id="shipment-templ" type="text/x-handlebars-template">
+                    <div class="card wabble">
+                        <header class="card-header">
+                            <p class="card-header-title">
+                                @{{author}}
+                            </p>
+                            <a class="card-header-icon">
                         <span class="icon">
                             <i class="fa fa-angle-down"></i>
                         </span>
                     </a>
-                    </header>
-                    <div class="card-content shipment">
-                        <div class="content">
-                            <h3 class="title is-4">{{name}}</h3>
-                            <small>{{timestamp}}</small>
-                            <br> {{desc}}
+                        </header>
+                        <div class="card-content shipment">
+                            <div class="content">
+                                <h3 class="title is-4">{{name}}</h3>
+                                <small>{{timestamp}}</small>
+                                <br> {{desc}}
+                            </div>
                         </div>
+                        <footer class="card-footer">
+                            <a class="card-footer-item" href="{{link}}"><i class="fa fa-eye"></i>&nbsp;Visit</a>
+                            <a class="card-footer-item" href="{{code}}"><i class="fa fa-code"></i>&nbsp;Code</a>
+                            <a class="card-footer-item" id='{{uid}}' onclick="startUpVote('{{uid}}')"><i class="fa fa-thumbs-up"></i>&nbsp;Upvote &nbsp;<span id='num{{uid}}' class="tag is-light">{{upvote}}</span></a>
+                            <a class="card-footer-item" onclick="shareShipment('{{uid}}')"><i class="fa fa-share"></i>&nbsp;Share</a>
+                        </footer>
                     </div>
-                    <footer class="card-footer">
-                        <a class="card-footer-item" href="{{link}}"><i class="fa fa-eye"></i>&nbsp;Visit</a>
-                        <a class="card-footer-item" href="{{code}}"><i class="fa fa-code"></i>&nbsp;Code</a>
-                        <a class="card-footer-item" id='{{uid}}' onclick="startUpVote('{{uid}}')"><i class="fa fa-thumbs-up"></i>&nbsp;Upvote &nbsp;<span id='num{{uid}}' class="tag is-light">{{upvote}}</span></a>
-                        <a class="card-footer-item" onclick="shareShipment('{{uid}}')"><i class="fa fa-share"></i>&nbsp;Share</a>
-                    </footer>
-                </div>
-                <br />
-                <div class="modal" id="share-modal{{uid}}">
-                    <div class="modal-background"></div>
-                    <div class="modal-content">
-                        <div class="card">
-                            <header class="card-header">
-                                <p class="card-header-title">
-                                    Share {{title}}
-                                </p>
-                            </header>
-                            <div class="card-content">
-                                <div class="content">
-                                    <p>Share this project with your friends on social media!</p>
-                                    <p>The share link is...</p>
-                                    <div class="columns">
-                                        <div class="column is-12">
-                                        <input class="input" onClick="this.select();" id="share-id{{uid}}" type="text" value="https://shipit.tech/?shared={{uid}}">
-                                        </div>
-                                        <!--
+                    <br />
+                    <div class="modal" id="share-modal{{uid}}">
+                        <div class="modal-background"></div>
+                        <div class="modal-content">
+                            <div class="card">
+                                <header class="card-header">
+                                    <p class="card-header-title">
+                                        Share {{title}}
+                                    </p>
+                                </header>
+                                <div class="card-content">
+                                    <div class="content">
+                                        <p>Share this project with your friends on social media!</p>
+                                        <p>The share link is...</p>
+                                        <div class="columns">
+                                            <div class="column is-12">
+                                                <input class="input" onClick="this.select();" id="share-id{{uid}}" type="text" value="https://shipit.tech/?shared={{uid}}">
+                                            </div>
+                                            <!--
                                         <div class="column is-2">
                                             <button id="copy-share-link{{uid}}" class="button" data-clipboard-target="#share-id{{uid}}"><i class="fa fa-clipboard"></i>&nbsp;Copy</button>
                                         </div>-->
-                                    </div>
-                                    <div class="has-text-centered">
-                                        <a href="http://twitter.com/share?text=Another wonderful project by a Hack Club member: {{name}}!&url=https://shipit.tech/?shared={{uid}}&via=starthackclub&related=starthackclub">
+                                        </div>
+                                        <div class="has-text-centered">
+                                            <a href="http://twitter.com/share?text=Another wonderful project by a Hack Club member: {{name}}!&url=https://shipit.tech/?shared={{uid}}&via=starthackclub&related=starthackclub">
                                             <i class="fa fa-2x fa-twitter"></i>
                                         </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <button class="modal-close is-large" id="unlaunch"></button>
                     </div>
-                    <button class="modal-close is-large" id="unlaunch"></button>
-                </div>
-            </script>
-            <div class="card" id="shipped-placeholder">
-                <div class="card-content">
-                    <div class="content has-text-centered" style="padding: 81px;">
-                        <span class="title is-3" id="loader-icon"><i class="fa fa-refresh"></i></span>
-                        <br /><br />
-                        <span class="title is-3" id="loader-text">Loading shipments...</span>
+                </script>
+                <div class="card" id="shipped-placeholder">
+                    <div class="card-content">
+                        <div class="content has-text-centered" style="padding: 81px;">
+                            <span class="title is-3" id="loader-icon"><i class="fa fa-refresh"></i></span>
+                            <br /><br />
+                            <span class="title is-3" id="loader-text">Loading shipments...</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="has-text-centered">
-            <button class="button is-danger is-medium wabble" id="loadButton" onClick="loadMoreProjects()">Load More</button>
-        </div>
-    </section>
+            <div class="has-text-centered">
+                <button class="button is-danger is-medium wabble" id="loadButton" onClick="loadMoreProjects()">Load More</button>
+            </div>
+        </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="content has-text-centered">
-                <p>
-                    A Hack Club Project by <a href="https://mingjie.info">Mingjie Jiang</a> and <a href="http://seankim.tech">Sean Kim</a>
-                </p>
-                <p>
-                    <a class="icon" href="https://github.com/mj66/shipit-frontend">
+        <footer class="footer">
+            <div class="container">
+                <div class="content has-text-centered">
+                    <p>
+                        A Hack Club Project by <a href="https://mingjie.info">Mingjie Jiang</a> and <a href="http://seankim.tech">Sean Kim</a>
+                    </p>
+                    <p>
+                        <a class="icon" href="https://github.com/mj66/shipit-frontend">
                         <i class="fa fa-github"></i>
                     </a>
-                </p>
+                    </p>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 
+        
+    </div>
     <!-- Include JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/41132a62d5.js"></script>
