@@ -49,13 +49,14 @@
         </div>
         <div class="navbar-end">
             <div id="logged-out-user" class="navbar-item">
-                <span>Not Logged In</span>
+                <a class="button is-light wabble"><i class="fa fa-user-circle-o"></i>&nbsp;&nbsp;Not Logged In</a>
             </div>
 
             <div id="logged-in-user" class="navbar-item" style="display: none">
-                <img id="useravatar"> &nbsp;
-                <span id="userName">Undefined</span>
-
+                <a class="button is-light wabble">
+                    <img id="useravatar"> &nbsp;
+                    <span id="userName">Undefined</span>
+                </a>
                 <div class="navbar-dropdown" id="account-menu">
                     <!--<a class="navbar-item"><i class="fa fa-user"></i>&nbsp;My Projects</a>-->
 
@@ -126,8 +127,7 @@
                             </div>
                             <br />
                             <p>If you do not have a GitHub account yet, which we will then blame your club leader, please
-                                <a
-                                    href="https://github.com/join" target="_blank">create one now</a>!</p>
+                                <a href="https://github.com/join" target="_blank">create one now</a>!</p>
                         </div>
                     </div>
                 </div>
@@ -196,11 +196,19 @@
                 <div class="hero-body">
                     <div class="container">
                         <h1 class="title is-4" id="title-banner">
-                            <a title="OCT 21 2015 04:29" id="time-travel" href="#"><i class="fa fa-clock-o"></i></a> Recently shipped...
+                            <a title="OCT 21 2015 04:29" id="time-travel" href="#"><i class="fa fa-clock-o"></i></a> Recently
+                            shipped...
                         </h1>
                     </div>
                 </div>
             </section>
+
+            <div class="container" id="shipped-placeholder">
+                <div class="content has-text-centered" style="padding: 81px;">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
             <div class="container" id="shipped">
                 <!-- Start Shipped UI -->
                 <script id="shipment-templ" type="text/x-handlebars-template">
@@ -264,20 +272,10 @@
                         </div>
                     </div>
                 </script>
-                <div class="card" id="shipped-placeholder">
-                    <div class="card-content">
-                        <div class="content has-text-centered" style="padding: 81px;">
-                            <span class="title is-3" id="loader-icon"><i class="fa fa-refresh"></i></span>
-                            <br /><br />
-                            <span class="title is-3" id="loader-text">Loading shipments...</span>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <div class="has-text-centered">
-                <a class="button is-danger wabble" id="loadButton" onClick="loadMoreProjects()">•••&nbsp;&nbsp;Load More</a>
-                &ensp;
+                <a class="button is-danger wabble" id="loadButton" onClick="loadMoreProjects()">•••&nbsp;&nbsp;Load More</a>                &ensp;
                 <a class="button is-danger wabble" id="top" onclick="toTop()"><i class="fa fa-arrow-up"></i>&nbsp;&nbsp;Back to top</a>
             </div>
         </section>
@@ -297,7 +295,7 @@
             </div>
         </footer>
 
-        
+
     </div>
     <!-- Include JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

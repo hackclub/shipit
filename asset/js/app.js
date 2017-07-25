@@ -324,9 +324,7 @@ function getProp(id) {
         try {
             buildPage(snapshot.val(), id);
         } catch (e) {
-            $("#loader-icon").html("<i class=\"fa fa-frown-o\"></i>");
-            $("#loader-text").html("Project not found.");
-            $("#loadButton").hide();
+            toastr.error("Project not found!")
         }
     });
 }

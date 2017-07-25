@@ -11,7 +11,7 @@ toastr.options.closeEasing = 'linear';
 toastr.options.closeButton = true;
 
 function loadShipment(id) {
-    $("#shipped-placeholder").hide();
+    $("#shipped-placeholder").slideUp("slow");
     $("#shipped").prepend(template(id));
 
     /*var sid = "#copy-share-link" + id;

@@ -59,10 +59,6 @@ a:hover {
     background-color: #E42D40;
 }
 
-.navbar span {
-    color: #ffffff;
-}
-
 .navbar {
     box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     position: fixed; /* Set the navbar to fixed position */
@@ -144,4 +140,29 @@ a.card-footer-item.is-danger {
 
 #time-travel {
     cursor: default;
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 45px;
+  height: 45px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #E42D40;
+  border-bottom-color: #E42D40;
+  animation: spinner .8s ease infinite;
+}
+
+#shipped-placeholder {
+    height: 45vh;
 }
