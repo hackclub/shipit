@@ -26,7 +26,6 @@ function loadShipment(id) {
 }
 
 $("#launch").on("click", openShipper);
-
 $("#logged-in-user").on("click", triggerAccountMenu);
 
 function triggerAccountMenu() {
@@ -59,3 +58,8 @@ $.get("https://api.github.com/repos/mj66/shipit-frontend/commits", function (dat
     $("#commit-id").attr("href", data[0].html_url);
     $("#commit-id").attr("title", data[0].commit.message);
 });
+
+function toTop() {
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        return false;
+}
