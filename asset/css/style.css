@@ -132,3 +132,12 @@ a.card-footer-item.is-danger {
 #logged-in-user {
     cursor: pointer;    
 }
+
+.unlaunch.button.is-link {
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.unlaunch.button.is-link:hover, .unlaunch.button.is-link:active {
+    background-color: #ffffff;
+}

@@ -20,7 +20,7 @@ function loadShipment(id) {
         toastr.success("Link successfully copied to clipboard!");
     });*/
 
-    $(".modal-close").on("click", closeShipper);
+    $(".unlaunch").on("click", closeShipper);
     $(".modal-background").on("click", closeShipper);
 
 }
