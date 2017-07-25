@@ -26,6 +26,7 @@ function loadShipment(id) {
 }
 
 $("#launch").on("click", openShipper);
+$("#time-travel").on("click", timeTravel);
 $("#logged-in-user").on("click", triggerAccountMenu);
 
 function triggerAccountMenu() {
@@ -60,6 +61,26 @@ $.get("https://api.github.com/repos/mj66/shipit-frontend/commits", function (dat
 });
 
 function toTop() {
-        $("html, body").animate({ scrollTop: 0 }, "slow");
-        return false;
+    $("html, body").animate({ scrollTop: 0 }, "slow");
+    return false;
+}
+
+function timeTravel() {
+    $("body").fadeOut(200);
+
+    setTimeout(function () {
+        $('*').contents().filter(function () {
+            return this.nodeType == Node.TEXT_NODE && this.nodeValue.trim() != '';
+        }).each(function () {
+            this.nodeValue = '🕒🕒🕒🕒';
+        });
+        $("body").fadeIn(200);
+
+
+        $("body").fadeOut(2000);
+    }, 500);
+
+    setTimeout(function () {
+        window.location.href = "https://github.com/hackclub/hackclub/blob/master/internals/logos/hack_to_the_future.svg";
+    }, 2500);
 }

@@ -141,3 +141,7 @@ a.card-footer-item.is-danger {
 .unlaunch.button.is-link:hover, .unlaunch.button.is-link:active {
     background-color: #ffffff;
 }
+
+#time-travel {
+    cursor: default;
+}
