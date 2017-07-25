@@ -18,11 +18,11 @@ textarea {
 
 a {
     color: #E42D40;
-    -o-transition: color .2s ease-out, background 1s ease-in;
-    -ms-transition: color .2s ease-out, background 1s ease-in;
-    -moz-transition: color .2s ease-out, background 1s ease-in;
-    -webkit-transition: color .2s ease-out, background 1s ease-in;
-    transition: color .2s ease-out, background 1s ease-in;
+    -o-transition: background .3s ease-in-out;
+    -ms-transition: background .3s ease-in-out;
+    -moz-transition: background .3s ease-in-out;
+    -webkit-transition: background .3s ease-in-out;
+    transition: background .3s ease-in-out;
 }
 
 a:hover {
@@ -44,8 +44,22 @@ a:hover {
 }
 
 .hero.is-danger,
-.button.is-danger {
+.button.is-danger, 
+.navbar {
     background-color: #E42D40;
+}
+
+.navbar a:hover {
+    color: #ffffff;
+    background-color: #E42D40;
+}
+
+.navbar span {
+    color: #ffffff;
+}
+
+#gh-login, #gh-logout {
+    text-shadow: none;
 }
 
 a.card-footer-item.is-danger {
