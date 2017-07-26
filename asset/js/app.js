@@ -409,5 +409,8 @@ function getProjectsFromKey(keys) {
 }
 
 function flagProj(uid) {
+
     toastr.error("Unfinished part!");
+
+    $("#flag-" + uid).html("<i class=\"fa fa-flag\"></i>");
 }
