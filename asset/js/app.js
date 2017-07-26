@@ -407,3 +407,7 @@ function getProjectsFromKey(keys) {
         $("#num" + snapshot.key).addClass("is-danger");
     });
 }
+
+function flagProj(uid) {
+    toastr.error("Unfinished part!");
+}

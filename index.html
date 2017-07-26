@@ -217,9 +217,9 @@
                             <p class="card-header-title">
                                 @{{author}}
                             </p>
-                            <a class="card-header-icon">
-                        <span class="icon">
-                            <i class="fa fa-angle-down"></i>
+                            <a class="card-header-icon" onclick="flagProj('{{uid}}')">
+                        <span class="icon" id="flag-{{uid}}">
+                            <i class="fa fa-flag-o"></i>
                         </span>
                     </a>
                         </header>
@@ -244,7 +244,7 @@
                             <div class="card">
                                 <header class="card-header">
                                     <p class="card-header-title">
-                                        Share {{title}}
+                                        Share "{{name}}" by {{author}}
                                     </p>
                                     <a class="button is-link card-header-icon unlaunch"><i class="fa fa-close"></i></a>
                                 </header>
