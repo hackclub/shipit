@@ -30,7 +30,7 @@ $("#time-travel").on("click", timeTravel);
 $("#logged-in-user").on("click", triggerAccountMenu);
 
 function triggerAccountMenu() {
-    $("#account-menu").slideToggle();
+    $("#account-menu").slideToggle(100);
 }
 
 function openShipper() {
