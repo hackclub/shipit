@@ -18,7 +18,7 @@ const query = database.ref("/projects").orderByChild("timestamp");
 const connectedRef = database.ref(".info/connected");
 const databaseRef = database.ref("/");
 
-var isConnected, upvoteStatus = true, flagStatus = true;
+var isConnected, upvoteStatus = true;
 var projectsDisplayed = [];
 var firstName;
 var firstKnownKey;
@@ -435,9 +435,7 @@ function flagModal(uid) {
 
 function startFlag(uid) {
     if (firebase.auth().currentUser != null) {
-        if (flagStatus) {
             checkIfAlreadyFlagged(firebase.auth().currentUser.uid, uid);
-        }
     } else {
         forceLogin();
     }
@@ -445,7 +443,6 @@ function startFlag(uid) {
 }
 
 function flagProj(uid) {
-    flagStatus = false;
     var userId = firebase.auth().currentUser.uid;
     try {
         var addFlagRef = database.ref("/users/" + userId + "/flagged/" + uid);
@@ -458,13 +455,11 @@ function flagProj(uid) {
         addFlagRef.update(updates);
 
         closeShipper();
-
     } catch (e) {
         console.log(e);
         toastr.error("This is most likely because you are not logged in, or you are a cheater.", "Error upvoting.")
     }
 
-    flagStatus = true;
 }
 
 function checkIfAlreadyFlagged(userId, key) {
