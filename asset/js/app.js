@@ -427,7 +427,7 @@ function getProjectsFromKey(keys) {
 
 function flagModal(uid) {
     $("#flag-modal" + uid).addClass("is-active");
-    setTimeout(function(){
+    setTimeout(function () {
         $("#confirm-flag-" + uid).removeClass("is-loading");
         $("#confirm-flag-" + uid).attr("disabled", false);
     }, 3000);
@@ -436,7 +436,6 @@ function flagModal(uid) {
 function startFlag(uid) {
     if (firebase.auth().currentUser != null) {
         if (flagStatus) {
-            flagStatus = false;
             checkIfAlreadyFlagged(firebase.auth().currentUser.uid, uid);
         }
     } else {
@@ -446,24 +445,26 @@ function startFlag(uid) {
 }
 
 function flagProj(uid) {
+    flagStatus = false;
     var userId = firebase.auth().currentUser.uid;
     try {
         var addFlagRef = database.ref("/users/" + userId + "/flagged/" + uid);
         var updates = {
             name: uid
         };
-        updateFlagCount(uid); 
+        updateFlagCount(uid);
 
         $("#flag-" + uid).html("<i class=\"fa fa-flag\"></i>");
         addFlagRef.update(updates);
 
         closeShipper();
 
-        flagStatus = true;
     } catch (e) {
         console.log(e);
         toastr.error("This is most likely because you are not logged in, or you are a cheater.", "Error upvoting.")
     }
+
+    flagStatus = true;
 }
 
 function checkIfAlreadyFlagged(userId, key) {
