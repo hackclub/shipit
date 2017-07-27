@@ -18,7 +18,7 @@ const query = database.ref("/projects").orderByChild("timestamp");
 const connectedRef = database.ref(".info/connected");
 const databaseRef = database.ref("/");
 
-var isConnected, upvoteStatus = true;
+var isConnected, upvoteStatus = true, flagStatus = true;
 var projectsDisplayed = [];
 var firstName;
 var firstKnownKey;
@@ -84,6 +84,7 @@ function isLoggedIn(user, token) {
     $("#fname-header").html(firstName + ", t");
     $("#useravatar").attr("src", user.photoURL);
     loadUpVotedProjects(firebase.auth().currentUser.uid);
+    loadFlaggedProjects(firebase.auth().currentUser.uid);
 
     $("#logged-in-user").show();
     $("#logged-out-user").hide();
@@ -111,7 +112,7 @@ $(function () {
     } else {
         query.limitToLast(10).on("child_added", function (snapshot) {
             if (!firstKnownKey) {
-              firstKnownKey = snapshot.key;
+                firstKnownKey = snapshot.key;
             }
             displayProjects(snapshot.val(), snapshot.key);
         });
@@ -181,12 +182,13 @@ function createProject() {
                 var newProjectRef = projectsRef.push();
                 newProjectRef.set({
                     author: $("#" + inputs[0]).val(),
-                    name:   $("#" + inputs[1]).val(),
+                    name: $("#" + inputs[1]).val(),
                     timestamp: getTimeStamp(),
-                    desc:   $("#" + inputs[2]).val(),
-                    link:   $("#" + inputs[3]).val(),
-                    code:   $("#" + inputs[4]).val(),
+                    desc: $("#" + inputs[2]).val(),
+                    link: $("#" + inputs[3]).val(),
+                    code: $("#" + inputs[4]).val(),
                     upvote: 0,
+                    flagged: 0,
                     featured: "false",
                     uid: firebase.auth().currentUser.uid
                 });
@@ -207,7 +209,7 @@ function createProject() {
 }
 
 function initShipper() {
-    
+
     var inputs = ["author", "name", "description", "liveLink", "codeLink", "username"];
 
     for (var i = 0; i < inputs.length; i++) {
@@ -356,6 +358,7 @@ function userFirstTimeCallback(userId, exists) {
         addNewUser(userId);
     } else {
         loadUpVotedProjects(userId);
+        loadFlaggedProjects(userId);
     }
 }
 
@@ -367,6 +370,20 @@ function loadUpVotedProjects(userId) {
     });
 }
 
+function loadFlaggedProjects(userId) {
+    databaseRef.child('users').child(userId).child('flagged').once('value', function (snapshot) {
+        snapshot.forEach(function (data) {
+            crossFlagProjects(data.val().name);
+        });
+    });
+}
+
+function crossFlagProjects(key) {
+    if (projectsDisplayed.indexOf(key) != -1) {
+        $("#flag-" + key).html("<i class=\"fa fa-flag\"></i>");
+    }
+}
+
 function crossCheckProjects(key) {
     if (projectsDisplayed.indexOf(key) != -1) {
         $("#num" + key).removeClass("is-light");
@@ -375,9 +392,9 @@ function crossCheckProjects(key) {
 }
 
 function loadMoreProjects(timestamp) {
-    query.endAt(firstKnownKey).limitToLast(5).on('child_added', function(snapshot, prevChildKey) {
+    query.endAt(firstKnownKey).limitToLast(5).on('child_added', function (snapshot, prevChildKey) {
         if (!firstKnownKey) {
-          firstKnownKey = snapshot.key;
+            firstKnownKey = snapshot.key;
         }
         displayProjects(snapshot.val(), snapshot.key); // adds post to a <div>
     });
@@ -408,9 +425,66 @@ function getProjectsFromKey(keys) {
     });
 }
 
+function flagModal(uid) {
+    $("#flag-modal" + uid).addClass("is-active");
+    setTimeout(function(){
+        $("#confirm-flag-" + uid).removeClass("is-loading");
+        $("#confirm-flag-" + uid).attr("disabled", false);
+    }, 3000);
+}
+
+function startFlag(uid) {
+    if (firebase.auth().currentUser != null) {
+        if (flagStatus) {
+            flagStatus = false;
+            checkIfAlreadyFlagged(firebase.auth().currentUser.uid, uid);
+        }
+    } else {
+        forceLogin();
+    }
+
+}
+
 function flagProj(uid) {
+    var userId = firebase.auth().currentUser.uid;
+    try {
+        var addFlagRef = database.ref("/users/" + userId + "/flagged/" + uid);
+        var updates = {
+            name: uid
+        };
+        updateFlagCount(uid); 
 
-    toastr.error("Unfinished part!");
+        $("#flag-" + uid).html("<i class=\"fa fa-flag\"></i>");
+        addFlagRef.update(updates);
 
-    $("#flag-" + uid).html("<i class=\"fa fa-flag\"></i>");
+        closeShipper();
+
+        flagStatus = true;
+    } catch (e) {
+        console.log(e);
+        toastr.error("This is most likely because you are not logged in, or you are a cheater.", "Error upvoting.")
+    }
+}
+
+function checkIfAlreadyFlagged(userId, key) {
+    var checkRef = database.ref("/users/" + userId + "/flagged/");
+    var check = true;
+    checkRef.once('value', function (snapshot) {
+        if (snapshot.val() === null) {
+            flagModal(key);
+        } else {
+            if (Object.keys(snapshot.val()).indexOf(key) != -1) {
+                toastr.error("You have already flagged this post! You cannot unflag it.")
+            } else {
+                flagModal(key);
+            }
+        }
+    });
+}
+
+function updateFlagCount(key) {
+    var updateFlagRef = database.ref("/projects/" + key);
+    updateFlagRef.once("value", function (snapshot) {
+        updateFlagRef.update({ flagged: snapshot.val().flagged + 1 });
+    });
 }

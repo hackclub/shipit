@@ -217,7 +217,7 @@
                             <p class="card-header-title">
                                 @{{author}}
                             </p>
-                            <a class="card-header-icon" onclick="flagProj('{{uid}}')" title="Flag this project">
+                            <a class="card-header-icon" onclick="startFlag('{{uid}}')" title="Flag this project">
                         <span class="icon" id="flag-{{uid}}">
                             <i class="fa fa-flag-o"></i>
                         </span>
@@ -238,6 +238,29 @@
                         </footer>
                     </div>
                     <br />
+                    <div class="modal" id="flag-modal{{uid}}">
+                        <div class="modal-background"></div>
+                        <div class="modal-content">
+                            <div class="card">
+                                <header class="card-header">
+                                    <p class="card-header-title">
+                                        Flag project "{{name}}"?
+                                    </p>
+                                    <a class="button is-link card-header-icon unlaunch"><i class="fa fa-close"></i></a>
+                                </header>
+                                <div class="card-content">
+                                    <div class="content">
+                                        <p>You are about to flag the project "{{name}}". Are you sure? <strong>You can not unflag a project.</strong>
+                                            Only flag a project when you feel like you actually should... If you flag too many projects, your account might
+                                            get banned!</p>            
+                                        <div class="has-text-centered">
+                                            <a class="button is-danger is-loading" id="confirm-flag-{{uid}}" href="#" onclick="flagProj('{{uid}}')" disabled><i class="fa fa-flag">&nbsp;&nbsp;Confirm and Flag</i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="modal" id="share-modal{{uid}}">
                         <div class="modal-background"></div>
                         <div class="modal-content">
