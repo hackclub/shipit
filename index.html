@@ -43,9 +43,6 @@
                 <img src="https://cdn.rawgit.com/hackclub/hackclub/1a1b9a06/internals/logos/hack_club_full_white.svg" width="112" height="28">
             </a>
 
-            <!--<span class="navbar-item">
-                <small>Version: Alpha Rolling Release&nbsp;<a class="tag" id="commit-id"></a></small>
-            </span>-->
         </div>
         <div class="navbar-end">
             <div id="logged-out-user" class="navbar-item">
@@ -118,7 +115,8 @@
                     <div class="card-content">
                         <div class="content">
                             <p>Please log in with your GitHub account! We will create your unique user identity once you are
-                                logged into GitHub. Don't worry, we won't hack into your GitHub account. <i>Right?</i></p>
+                                logged into GitHub. Your posted projects will also be associated with your own account. Don't
+                                worry, we won't hack into your GitHub account. <i>Right?</i></p>
                             <div class="has-text-centered">
                                 <a class="button is-dark wabble" id="gh-login-forced" href="#" onclick="githubSignin()">
                                 <span class="icon"><i class="fa fa-github"></i></span>
@@ -250,9 +248,11 @@
                                 </header>
                                 <div class="card-content">
                                     <div class="content">
-                                        <p>You are about to flag the project "{{name}}". Are you sure? <strong>You can not unflag a project.</strong>
-                                            Only flag a project when you feel like you actually should... If you flag too many projects, your account might
-                                            get banned!</p>            
+                                        <p>You are about to flag the project "{{name}}". Are you sure? <strong>You can not unflag a project.</strong>                                            Only flag a project when you feel like you actually should... If you flag too
+                                            many projects, your account might get banned!</p>
+                                        <p>A project flagged by multiple hackers will be subject to review, and if applicable,
+                                            removal.
+                                        </p>
                                         <div class="has-text-centered">
                                             <a class="button is-danger is-loading" id="confirm-flag-{{uid}}" href="#" onclick="flagProj('{{uid}}')" disabled><i class="fa fa-flag">&nbsp;&nbsp;Confirm and Flag</i></a>
                                         </div>
@@ -307,11 +307,12 @@
             <div class="container">
                 <div class="content has-text-centered">
                     <p>
-                        A Hack Club Project by <a href="https://mingjie.info">Mingjie Jiang</a> and <a href="http://seankim.tech">Sean Kim</a>
+                        A <a href="https://hackclub.com">Hack Club Project by <a href="https://mingjie.info">Mingjie Jiang</a> and <a href="http://seankim.tech">Sean Kim</a>
                     </p>
                     <p>
                         <a class="icon" href="https://github.com/mj66/shipit-frontend">
                         <i class="fa fa-github"></i>
+                        &emsp;<small><a class="tag" id="commit-id"></a></small>
                     </a>
                     </p>
                 </div>

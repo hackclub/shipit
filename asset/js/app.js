@@ -75,6 +75,9 @@ function isLoggedOut() {
 function isLoggedIn(user, token) {
     firstName = firebase.auth().currentUser.displayName.split(" ")[0];
 
+    //Google Analytics
+    ga('set', 'userId', firebase.auth().currentUser.uid); // Set the user ID using signed-in user_id.
+
     $("#gh-login").hide();
     $("#gh-logout").show();
 
