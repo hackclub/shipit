@@ -95,6 +95,32 @@ function isLoggedIn(user, token) {
     initShipper();
 }
 
+function getSL(dest) {
+    $.ajax({
+        url: "https://api.rebrandly.com/v1/links",
+        type: "post",
+        data: JSON.stringify({
+            "destination": "https://shipit.tech/?shared=" + dest
+            , "domain": { "fullName": "p.shipit.tech" }
+            , "title": "Shipit:" + firebase.auth().currentUser.uid + " / " + getTimeStamp()
+        }),
+        headers: {
+            "Content-Type": "application/json",
+            "apikey": "1e766d2359454af3bdc8aa52353903a4"
+        },
+        dataType: "json",
+        success: function (link) {
+            $("#share-id" + dest).attr("value", "https://" + link.shortUrl);
+            $("#share-twitter" + dest).attr("onclick", "shareTwitter(\"https://" + link.shortUrl + "\")");
+        }
+    });
+}
+
+function shareTwitter(dest) {
+    window.location.href = "http://twitter.com/share?text=Another wonderful project by a Hack Club member: &url=" + dest + "&via=starthackclub&related=starthackclub";
+}
+
+
 function getParams(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
@@ -193,7 +219,7 @@ function createProject() {
                     upvote: 0,
                     flagged: 0,
                     featured: "false",
-                    uid: firebase.auth().currentUser.uid
+                    uid: firebase.auth().currentUser.uid,
                 });
                 closeShipper();
 
@@ -438,7 +464,7 @@ function flagModal(uid) {
 
 function startFlag(uid) {
     if (firebase.auth().currentUser != null) {
-            checkIfAlreadyFlagged(firebase.auth().currentUser.uid, uid);
+        checkIfAlreadyFlagged(firebase.auth().currentUser.uid, uid);
     } else {
         forceLogin();
     }
