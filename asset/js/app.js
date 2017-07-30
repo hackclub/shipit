@@ -21,7 +21,7 @@ const databaseRef = database.ref("/");
 var isConnected, upvoteStatus = true;
 var projectsDisplayed = [];
 var firstName;
-var firstKnownKey, lastProjLoaded;
+var firstKnownKey, lastProjLoaded, queryIr = 0;
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -424,15 +424,21 @@ function crossCheckProjects(key) {
 }
 
 function loadMoreProjects() {
-    for (var i = 0; i < 5; i++) {
-        query.endAt(lastProjLoaded - 1, "timestamp").limitToLast(1).on('child_added', function (snapshot, prevChildKey) {
-            lastProjLoaded = snapshot.val().timestamp;
-            setTimeout(function () {
-                displayProjectsDown(snapshot.val(), snapshot.key);
-            }, 500);
+    queryIr = 5;
+    requestNextProj(lastProjLoaded);
+}
+
+function requestNextProj(ts) {
+    if (queryIr > 0) {
+        query.endAt(ts - 1, "timestamp").limitToLast(1).on('child_added', function (snapshot, prevChildKey) {
+            displayProjectsDown(snapshot.val(), snapshot.key);
+            requestNextProj(snapshot.val().timestamp);
+            queryIr--;
         });
     }
+    lastProjLoaded = ts;
 }
+
 
 function displayProjectsDown(data, key) {
     try {
