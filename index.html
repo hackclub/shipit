@@ -289,7 +289,7 @@
                                         <p>The share link is...</p>
                                         <div class="columns">
                                             <div class="column is-12">
-                                                <input class="input" onClick="this.select();" id="share-id{{uid}}" type="text" value="{{shortLink}}">
+                                                <input class="input" onClick="this.select();" id="share-id{{uid}}" type="text" value="">
                                             </div>
                                             <!--
                                         <div class="column is-2">
@@ -297,7 +297,7 @@
                                         </div>-->
                                         </div>
                                         <div class="has-text-centered">
-                                            <a href="http://twitter.com/share?text=Another wonderful project by a Hack Club member: &url={{shortLink}}&via=starthackclub&related=starthackclub" id="share-twitter{{uid}}">
+                                            <a href="#1" onclick="shareTwitter('{{uid}}')" id="share-twitter{{uid}}">
                                             <i class="fa fa-2x fa-twitter"></i>
                                         </a>
                                         </div>
