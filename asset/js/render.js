@@ -12,7 +12,7 @@ toastr.options.closeButton = true;
 
 function loadShipment(id) {
     $("#shipped-placeholder").slideUp("slow");
-    $("#shipped").append(template(id));
+    $("#shipped").prepend(template(id));
 
     $(".unlaunch").on("click", closeShipper);
     $(".modal-background").on("click", closeShipper);
