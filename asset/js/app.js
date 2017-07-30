@@ -21,7 +21,7 @@ const databaseRef = database.ref("/");
 var isConnected, upvoteStatus = true;
 var projectsDisplayed = [];
 var firstName;
-var firstKnownKey, lastProjLoaded, queryIr = 0;
+var firstKnownKey, lastProjLoaded, queryIr = 0, sfired = false;
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -153,6 +153,16 @@ $(function () {
     if (action == "launch") {
         openShipper();
     }
+
+    $(window).on("scroll", function () {
+        var scrollHeight = $(document).height();
+        var scrollPosition = $(window).height() + $(window).scrollTop();
+        if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
+            if (!sfired) {
+                loadMoreProjects();
+            }
+        }
+    });
 });
 
 connectedRef.on("value", function (snapshot) {
@@ -437,6 +447,7 @@ function requestNextProj(ts) {
         });
     }
     lastProjLoaded = ts;
+    sfired = false;
 }
 
 
