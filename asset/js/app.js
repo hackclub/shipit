@@ -153,16 +153,6 @@ $(function () {
     if (action == "launch") {
         openShipper();
     }
-
-    $(window).on("scroll", function () {
-        var scrollHeight = $(document).height();
-        var scrollPosition = $(window).height() + $(window).scrollTop();
-        if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
-            if (!sfired) {
-                loadMoreProjects();
-            }
-        }
-    });
 });
 
 connectedRef.on("value", function (snapshot) {
@@ -440,11 +430,15 @@ function loadMoreProjects() {
 
 function requestNextProj(ts) {
     if (queryIr > 0) {
-        query.endAt(ts - 1, "timestamp").limitToLast(1).on('child_added', function (snapshot, prevChildKey) {
-            displayProjectsDown(snapshot.val(), snapshot.key);
-            requestNextProj(snapshot.val().timestamp);
-            queryIr--;
-        });
+        try {
+            query.endAt(ts - 1, "timestamp").limitToLast(1).on('child_added', function (snapshot, prevChildKey) {
+                displayProjectsDown(snapshot.val(), snapshot.key);
+                requestNextProj(snapshot.val().timestamp);
+                queryIr--;
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
     lastProjLoaded = ts;
     sfired = false;
