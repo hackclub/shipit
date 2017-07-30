@@ -21,7 +21,7 @@ const databaseRef = database.ref("/");
 var isConnected, upvoteStatus = true;
 var projectsDisplayed = [];
 var firstName;
-var firstKnownKey;
+var firstKnownKey, lastProjLoaded;
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
@@ -144,6 +144,9 @@ $(function () {
                 firstKnownKey = snapshot.key;
             }
             displayProjects(snapshot.val(), snapshot.key);
+            if (!lastProjLoaded) {
+                lastProjLoaded = snapshot.val().timestamp;
+            }
         });
     }
     var action = getParams("action");
@@ -420,13 +423,39 @@ function crossCheckProjects(key) {
     }
 }
 
-function loadMoreProjects(timestamp) {
-    query.endAt(firstKnownKey).limitToLast(5).on('child_added', function (snapshot, prevChildKey) {
-        if (!firstKnownKey) {
-            firstKnownKey = snapshot.key;
+function loadMoreProjects() {
+    for (var i = 0; i < 5; i++) {
+        query.endAt(lastProjLoaded - 1, "timestamp").limitToLast(1).on('child_added', function (snapshot, prevChildKey) {
+            lastProjLoaded = snapshot.val().timestamp;
+            setTimeout(function () {
+                displayProjectsDown(snapshot.val(), snapshot.key);
+            }, 500);
+        });
+    }
+}
+
+function displayProjectsDown(data, key) {
+    try {
+        projectsDisplayed.push(key);
+        var newProject = {
+            author: data.author,
+            name: data.name,
+            timestamp: convertTimestamp(data.timestamp),
+            desc: data.desc,
+            link: data.link,
+            code: data.code,
+            upvote: data.upvote,
+            uid: key
         }
-        displayProjects(snapshot.val(), snapshot.key); // adds post to a <div>
-    });
+        $("#loadButton").attr("onclick", "loadMoreProjects('" + data.timestamp + "')")
+        $("#shipped-placeholder").slideUp("slow");
+        $("#shipped").append(template(newProject));
+        $(".unlaunch").on("click", closeShipper);
+        $(".modal-background").on("click", closeShipper);
+    } catch (e) {
+        console.log("Warning: Unknown error occured. The content is successfully rendered.");
+        console.log(e);
+    }
 }
 
 function showUpvotedPage() {

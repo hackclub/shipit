@@ -12,13 +12,7 @@ toastr.options.closeButton = true;
 
 function loadShipment(id) {
     $("#shipped-placeholder").slideUp("slow");
-    $("#shipped").prepend(template(id));
-
-    /*var sid = "#copy-share-link" + id;
-    var clipboard = new Clipboard(sid);
-    clipboard.on('success', function (e) {
-        toastr.success("Link successfully copied to clipboard!");
-    });*/
+    $("#shipped").append(template(id));
 
     $(".unlaunch").on("click", closeShipper);
     $(".modal-background").on("click", closeShipper);
