@@ -419,7 +419,7 @@ function loadFlaggedProjects(userId) {
 
 function crossFlagProjects(key) {
     if (projectsDisplayed.indexOf(key) != -1) {
-        $("#flag-" + key).html("<i class=\"fa fa-flag\"></i>");
+        $("#project" + key).hide();
     }
 }
 
@@ -544,8 +544,7 @@ function flagProj(uid) {
             name: uid
         };
         updateFlagCount(uid);
-
-        $("#flag-" + uid).html("<i class=\"fa fa-flag\"></i>");
+        $("#project" + uid).hide();
         addFlagRef.update(updates);
 
         closeShipper();
