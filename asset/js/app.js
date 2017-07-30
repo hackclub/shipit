@@ -212,6 +212,7 @@ function createProject() {
         if (completed) {
             if (firebase.auth().currentUser != null) {
                 var newProjectRef = projectsRef.push();
+                console.log(newProjectRef.key);
                 newProjectRef.set({
                     author: $("#" + inputs[0]).val(),
                     name: $("#" + inputs[1]).val(),
@@ -224,6 +225,12 @@ function createProject() {
                     featured: "false",
                     uid: firebase.auth().currentUser.uid,
                 });
+                var addShippedRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/shipped/" + newProjectRef.key);
+                var updates = {
+                    name: newProjectRef.key
+                };
+                addShippedRef.update(updates);
+
                 closeShipper();
 
                 initShipper();
@@ -477,6 +484,22 @@ function showUpvotedPage() {
     projectsDisplayed = [];
     $("#shipped").html("");
     var checkRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/upVoted/");
+    checkRef.once('value', function (snapshot) {
+        snapshot.forEach(function (data) {
+            getProjectsFromKey(data.val())
+        });
+    });
+
+}
+
+function showShippedPage() {
+
+    $("#loadButton").hide();
+    $("#title-banner").html("Your shipped projects...")
+
+    projectsDisplayed = [];
+    $("#shipped").html("");
+    var checkRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/shipped/");
     checkRef.once('value', function (snapshot) {
         snapshot.forEach(function (data) {
             getProjectsFromKey(data.val())

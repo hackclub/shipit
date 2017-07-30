@@ -45,7 +45,6 @@ function closeShipper() {
 }
 
 function shareShipment(uid) {
-    getSL(uid);
     $("#share-modal" + uid).addClass("is-active");
 }
 
