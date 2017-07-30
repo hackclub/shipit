@@ -448,6 +448,8 @@ function requestNextProj(ts) {
         }
     }
     lastProjLoaded = ts;
+    loadUpVotedProjects(firebase.auth().currentUser.uid);
+    loadFlaggedProjects(firebase.auth().currentUser.uid);
     sfired = false;
 }
 
