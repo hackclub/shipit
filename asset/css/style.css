@@ -149,6 +149,7 @@ a.card-footer-item.is-danger {
 #useravatar {
     width: 1.75rem;
     height: 1.75rem;
+    border-radius: 50%;
 }
 
 @media screen and (min-width: 1000px) {
