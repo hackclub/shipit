@@ -65,7 +65,6 @@ function githubSignout() {
 }
 
 function isLoggedOut() {
-    $("#gh-login").show();
     $("#gh-logout").hide();
 
     $("#logged-in-user").hide();
@@ -78,7 +77,6 @@ function isLoggedIn(user, token) {
     //Google Analytics
     ga('set', 'userId', firebase.auth().currentUser.uid); // Set the user ID using signed-in user_id.
 
-    $("#gh-login").hide();
     $("#gh-logout").show();
 
     closeShipper();

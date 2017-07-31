@@ -60,10 +60,14 @@ a:hover {
 }
 
 .hero.is-danger,
-.button.is-danger,
-.navbar {
+.button.is-danger
+{
     background-color: #E42D40;
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+}
+
+.navbar .button {
+    box-shadow: none;
 }
 
 .navbar a:hover {
@@ -72,14 +76,26 @@ a:hover {
 }
 
 .navbar {
-    box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     position: fixed;
+    background-color: #E42D40;
     /* Set the navbar to fixed position */
     top: 0;
     /* Position the navbar at the top of the page */
     width: 100%;
     /* Full width */
     z-index: 2;
+}
+
+.navbar-item {
+    padding: .5rem .5rem;
+}
+
+.navbar-item .button.is-light {
+    border-color: transparent!important;
+}
+
+.navbar-brand {
+    padding-left: .5rem;
 }
 
 #gh-login,

@@ -59,11 +59,11 @@
             </div>
             <div class="navbar-end">
                 <div id="logged-out-user" class="navbar-item">
-                    <a class="button is-light wabble"><i class="fa fa-user-circle-o"></i>&nbsp;&nbsp;Not Logged In</a>
+                    <a class="button is-light is-outlined" onclick="githubSignin()"><i class="fa fa-sign-in"></i>&nbsp;&nbsp;Not Logged In</a>
                 </div>
 
                 <div id="logged-in-user" class="navbar-item" style="display: none">
-                    <a class="button is-light wabble">
+                    <a class="button is-light is-outlined">
                     <img id="useravatar"> &nbsp;
                     <span id="userName">Undefined</span>
                 </a>
@@ -71,21 +71,8 @@
                         <a class="navbar-item" onclick="showShippedPage()"><i class="fa fa-user"></i>&nbsp;My Projects</a>
 
                         <a class="navbar-item" onclick="showUpvotedPage()"><i class="fa fa-heart"></i>&nbsp;Upvoted Projects</a>
-                    </div>
-                </div>
-                <div class="navbar-item">
-                    <div class="field is-grouped">
-                        <p class="control">
-                            <a class="button is-dark wabble" id="gh-login" href="#" onclick="githubSignin()">
-                            <span class="icon"><i class="fa fa-github"></i></span>
-                            <span>Sign In</span>
-                        </a>
-
-                            <a class="button is-dark wabble" id="gh-logout" href="#" onclick="githubSignout()" style="display: none">
-                            <span class="icon"><i class="fa fa-github"></i></span>
-                            <span>Sign Out</span>
-                        </a>
-                        </p>
+                    
+                        <a class="navbar-item" id="gh-logout" onclick="githubSignout()"><i class="fa fa-sign-out"></i>&nbsp;Sign out</a>
                     </div>
                 </div>
             </div>
@@ -157,8 +144,7 @@
                         </header>
                         <div class="card-content">
                             <div class="content">
-                                <p>Check out the <a href="https://github.com/mj66/shipit#shipit-community-guidelines">Shipit Community Guidelines</a> 
-                                    before you post to get the most audiences and prevent getting banned!</p>
+                                <p>Check out the <a href="https://github.com/mj66/shipit#shipit-community-guidelines">Shipit Community Guidelines</a>                                    before you post to get the most audiences and prevent getting banned!</p>
                                 <div class="field">
                                     <label class="label">Name</label>
                                     <p class="control">
