@@ -213,7 +213,6 @@ function createProject() {
         if (completed) {
             if (firebase.auth().currentUser != null) {
                 var newProjectRef = projectsRef.push();
-                console.log(newProjectRef.key);
                 newProjectRef.set({
                     author: $("#" + inputs[0]).val(),
                     name: $("#" + inputs[1]).val(),
@@ -376,7 +375,6 @@ function buildPage(data, key) {
 }
 
 function addNewUser(userId) {
-    console.log('test')
     var newUserRef = database.ref("/users/" + userId)
     var updates = {};
     newUserRef.set({
