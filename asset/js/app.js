@@ -158,9 +158,10 @@ $(function () {
 connectedRef.on("value", function (snapshot) {
     if (snapshot.val() == true) {
         isConnected = true;
+        $("main").attr("style", "opacity: 1")
     } else {
         isConnected = false;
-        //Mingjie work some css magic
+        $("main").attr("style", "opacity: 0.5; pointer-events: none")
     }
 });
 
