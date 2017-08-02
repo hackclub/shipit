@@ -99,12 +99,17 @@ function getSL(dest) {
         type: "post",
         data: JSON.stringify({
             "destination": "https://shipit.hackclub.com/?shared=" + dest
-            , "domain": { "fullName": "p.shipit.tech" }
-            , "title": "Shipit:" + firebase.auth().currentUser.uid + " / " + getTimeStamp()
+            , "domain": {
+                "id": "c8e958cfc21c4a6d8b94ed1690e8cfc4"
+            }
+            , "title": "Shipit:" + firebase.auth().currentUser.displayName + " / " + firebase.auth().currentUser.uid + " / " + getTimeStamp(),
+            "team": "11eb9668b45643aa8911a853f8f3e624"
         }),
         headers: {
+            "team": "11eb9668b45643aa8911a853f8f3e624",
             "Content-Type": "application/json",
-            "apikey": "1e766d2359454af3bdc8aa52353903a4"
+            "apikey": "1e766d2359454af3bdc8aa52353903a4",
+            
         },
         dataType: "json",
         success: function (link) {
