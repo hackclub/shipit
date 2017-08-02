@@ -98,7 +98,7 @@ function getSL(dest) {
         url: "https://api.rebrandly.com/v1/links",
         type: "post",
         data: JSON.stringify({
-            "destination": "https://shipit.tech/?shared=" + dest
+            "destination": "https://shipit.hackclub.com/?shared=" + dest
             , "domain": { "fullName": "p.shipit.tech" }
             , "title": "Shipit:" + firebase.auth().currentUser.uid + " / " + getTimeStamp()
         }),
