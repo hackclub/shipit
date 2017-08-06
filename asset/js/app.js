@@ -32,7 +32,7 @@ firebase.auth().onAuthStateChanged(function (user) {
 });
 
 function githubSignin() {
-    firebase.auth().signInWithPopup(provider)
+    firebase.auth().signInWithRedirect(provider)
 
         .then(function (result) {
             firstName = firebase.auth().currentUser.displayName.split(" ")[0];
