@@ -203,7 +203,7 @@ a.card-footer-item.is-danger {
 }
 
 .navbar-dropdown {
-    background-color: #fff;
+    background-color: #fff!important;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border-top: 1px solid #dbdbdb;
