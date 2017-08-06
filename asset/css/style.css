@@ -60,8 +60,7 @@ a:hover {
 }
 
 .hero.is-danger,
-.button.is-danger
-{
+.button.is-danger {
     background-color: #E42D40;
     box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19), 0 8px 17px 0 rgba(0, 0, 0, 0.2);
 }
@@ -201,4 +200,25 @@ a.card-footer-item.is-danger {
 
 #shipped-placeholder {
     height: 45vh;
+}
+
+.navbar-dropdown {
+    background-color: #fff;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top: 1px solid #dbdbdb;
+    -webkit-box-shadow: 0 8px 8px rgba(10, 10, 10, .1);
+    box-shadow: 0 8px 8px rgba(10, 10, 10, .1);
+    display: none;
+    font-size: .875rem;
+    left: 0;
+    min-width: 100%;
+    position: absolute;
+    top: 100%;
+    z-index: 20;
+}
+
+#account-button {
+    position: fixed;
+    right: 0;
 }
