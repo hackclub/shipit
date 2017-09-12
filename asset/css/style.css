@@ -116,8 +116,8 @@ a.card-footer-item.is-danger {
     border-radius: 3px;
     box-shadow: 0 5px 10px rgba(10, 10, 10, .3), 0 0 0 1px rgba(10, 10, 10, 0);
     -webkit-box-shadow: 0 5px 10px rgba(10, 10, 10, .3), 0 0 0 1px rgba(10, 10, 10, 0);
-    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .wabble::after {
@@ -125,13 +125,13 @@ a.card-footer-item.is-danger {
     box-shadow: 0 5px 10px rgba(10, 10, 10, .3), 0 0 0 1px rgba(10, 10, 10, 0);
     -webkit-box-shadow: 0 5px 10px rgba(10, 10, 10, .3), 0 0 0 1px rgba(10, 10, 10, 0);
     opacity: 0;
-    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -webkit-transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 .wabble:hover {
-    -webkit-transform: scale(1.035, 1.035);
-    transform: scale(1.035, 1.035);
+    -webkit-transform: scale(1.03, 1.03);
+    transform: scale(1.03, 1.03);
 }
 
 .wabble:active {
