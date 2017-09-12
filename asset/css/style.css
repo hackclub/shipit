@@ -34,11 +34,11 @@ main {
 
 a {
     color: #E42D40;
-    -o-transition: background .3s ease-in-out;
-    -ms-transition: background .3s ease-in-out;
-    -moz-transition: background .3s ease-in-out;
-    -webkit-transition: background .3s ease-in-out;
-    transition: background .3s ease-in-out;
+    -o-transition: all .15s ease-in-out;
+    -ms-transition: all .15s ease-in-out;
+    -moz-transition: all .15s ease-in-out;
+    -webkit-transition: all .15s ease-in-out;
+    transition: all .15s ease-in-out;
 }
 
 a:hover {
@@ -221,4 +221,14 @@ a.card-footer-item.is-danger {
 #account-button {
     position: fixed;
     right: 0;
+}
+
+.card-header-icon:hover, .card-footer-item:hover {
+    background-color: #E42D40;
+    color: white;
+}
+
+.card-header-icon {
+    background-color: white;
+    color: #E42D40;
 }
