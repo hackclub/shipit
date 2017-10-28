@@ -1,8 +1,8 @@
 # Hack Club Shipit Platform!
 ### Welcome to the new era of spaghetti one-pager. By [**@jsneak**][1] & [**@mj66**][2]
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/q7TTfZYjXAF2nnhG5MFVnFwy/mj66/shipit'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/q7TTfZYjXAF2nnhG5MFVnFwy/mj66/shipit.svg' />
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/q7TTfZYjXAF2nnhG5MFVnFwy/hackclub/shipit'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/q7TTfZYjXAF2nnhG5MFVnFwy/hackclub/shipit.svg' />
 </a>
 
 ## About this platform
