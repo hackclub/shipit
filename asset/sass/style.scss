@@ -62,9 +62,12 @@ a {
   .button {
     box-shadow: none;
   }
-  a, a:hover {
+  #nav-name, #nav-name:hover {
     color: #ffffff;
     background-color: transparent;
+  }
+  .button.is-light {
+    border-color: transparent !important;
   }
   position: fixed;
   background: linear-gradient(90deg, #ce293c 0%, #e42d42 50%, #eb9763 100%);
@@ -76,11 +79,9 @@ a {
   z-index: 2;
 }
 
-.navbar-item {
+a.navbar-item {
+  color: #000;
   padding: .5rem .5rem;
-  .button.is-light {
-    border-color: transparent !important;
-  }
 }
 
 .navbar-brand {
