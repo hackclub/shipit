@@ -1,0 +1,44 @@
+{
+  "name": "shipit",
+  "version": "1.0.0",
+  "description": "Shipping your project to the Hack Club community.",
+  "main": "index.html",
+  "scripts": {
+    "build": "gulp build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hackclub/shipit.git"
+  },
+  "keywords": [
+    "hackclub"
+  ],
+  "author": "Mingjie Jiang <jiang@mingjie.info> (https://mingjie.info)",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/hackclub/shipit/issues"
+  },
+  "homepage": "https://github.com/hackclub/shipit#readme",
+  "dependencies": {
+    "bulma": "^0.6.1",
+    "bulma-slider": "^0.1.0",
+    "bulma-switch": "^0.1.2",
+    "font-awesome": "^4.7.0",
+    "fuse.js": "^3.2.0",
+    "geolib": "^2.0.24",
+    "jquery": "^3.2.1",
+    "toastr": "^2.1.4"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^4.0.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-uglify": "^3.0.0",
+    "pump": "^2.0.0",
+    "uglify-es": "^3.2.2"
+  }
+}

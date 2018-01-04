@@ -1,4 +1,4 @@
-// Initialize Firebase
+// Initialize Firebase - PRODUCTION BASE
 var config = {
     apiKey: "AIzaSyD-IT1RWXi-7bMSjtTsPmpaTD2SXadFxC0",
     authDomain: "shipit-7427d.firebaseapp.com",
@@ -21,12 +21,14 @@ const databaseRef = database.ref("/");
 var isConnected, upvoteStatus = true;
 var projectsDisplayed = [];
 var firstName;
-var firstKnownKey, lastProjLoaded, queryIr = 0, sfired = false;
+var firstKnownKey, lastProjLoaded, queryIr = 0,
+    sfired = false;
 
-firebase.auth().onAuthStateChanged(function (user) {
+firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         isLoggedIn(firebase.auth().currentUser);
-    } else {
+    }
+    else {
         isLoggedOut();
     }
 });
@@ -34,13 +36,13 @@ firebase.auth().onAuthStateChanged(function (user) {
 function githubSignin() {
     firebase.auth().signInWithRedirect(provider)
 
-        .then(function (result) {
+        .then(function(result) {
             firstName = firebase.auth().currentUser.displayName.split(" ")[0];
             checkForFirstTime(firebase.auth().currentUser.uid);
             //User Sucessfully Logged In
             toastr.success("Welcome, " + firstName + "!", "Successfully logged in.");
 
-        }).catch(function (error) {
+        }).catch(function(error) {
             var errorCode = error.code;
             var errorMessage = error.message;
             //User Log In Error
@@ -51,12 +53,12 @@ function githubSignin() {
 function githubSignout() {
     firebase.auth().signOut()
 
-        .then(function () {
+        .then(function() {
 
             window.location.reload();
             //User Log Out Successful, refresh page for content
 
-        }, function (error) {
+        }, function(error) {
 
             toastr.error("Signout failed: " + error);
 
@@ -82,15 +84,13 @@ function isLoggedIn(user, token) {
     closeShipper();
 
     $("#userName").html(user.displayName);
-    $("#fname-header").html(firstName + ", t");
+    $("#fname-header").html(firstName + ", s");
     $("#useravatar").attr("src", user.photoURL);
     loadUpVotedProjects(firebase.auth().currentUser.uid);
     loadFlaggedProjects(firebase.auth().currentUser.uid);
 
     $("#logged-in-user").show();
     $("#logged-out-user").hide();
-
-    initShipper();
 }
 
 function getSL(dest) {
@@ -98,21 +98,21 @@ function getSL(dest) {
         url: "https://api.rebrandly.com/v1/links",
         type: "post",
         data: JSON.stringify({
-            "destination": "https://shipit.hackclub.com/?shared=" + dest
-            , "domain": {
+            "destination": "https://shipit.hackclub.com/?shared=" + dest,
+            "domain": {
                 "id": "c8e958cfc21c4a6d8b94ed1690e8cfc4"
-            }
-            , "title": "Shipit:" + firebase.auth().currentUser.displayName + " / " + firebase.auth().currentUser.uid + " / " + getTimeStamp(),
+            },
+            "title": "Shipit:" + firebase.auth().currentUser.displayName + " / " + firebase.auth().currentUser.uid + " / " + getTimeStamp(),
             "team": "11eb9668b45643aa8911a853f8f3e624"
         }),
         headers: {
             "team": "11eb9668b45643aa8911a853f8f3e624",
             "Content-Type": "application/json",
             "apikey": "1e766d2359454af3bdc8aa52353903a4",
-            
+
         },
         dataType: "json",
-        success: function (link) {
+        success: function(link) {
             $("#share-id" + dest).attr("value", "https://" + link.shortUrl);
             $("#share-twitter" + dest).attr("onclick", "shareTwitter(\"https://" + link.shortUrl + "\")");
         }
@@ -134,15 +134,16 @@ function getParams(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-$(function () {
+$(function() {
     var shared = getParams("shared");
     if (shared != null) {
         getProp(shared);
-        $("#launch").on("click", function () {
+        $("#launch").on("click", function() {
             window.location.replace("/?action=launch");
         });
-    } else {
-        query.limitToLast(10).on("child_added", function (snapshot) {
+    }
+    else {
+        query.limitToLast(10).on("child_added", function(snapshot) {
             if (!firstKnownKey) {
                 firstKnownKey = snapshot.key;
             }
@@ -158,13 +159,12 @@ $(function () {
     }
 });
 
-connectedRef.on("value", function (snapshot) {
+connectedRef.on("value", function(snapshot) {
     if (snapshot.val() == true) {
         isConnected = true;
-        $("main").attr("style", "opacity: 1")
-    } else {
+    }
+    else {
         isConnected = false;
-        $("main").attr("style", "opacity: 0.5; pointer-events: none")
     }
 });
 
@@ -185,7 +185,8 @@ function displayProjects(data, key) {
         }
         $("#loadButton").attr("onclick", "loadMoreProjects('" + data.timestamp + "')")
         loadShipment(newProject);
-    } catch (e) {
+    }
+    catch (e) {
         console.log("Warning: Unknown error occured. The content is successfully rendered.");
         console.log(e);
     }
@@ -234,9 +235,7 @@ function createProject() {
                 };
                 addShippedRef.update(updates);
 
-                closeShipper();
-
-                initShipper();
+                finishShipper();
             }
             else {
                 toastr.error("You are not logged in... Cheater!");
@@ -245,24 +244,9 @@ function createProject() {
         else {
             toastr.error("Shipping error: Check for fields in red!");
         }
-    } else {
-        //Mingjie work some css magic or something
     }
-}
-
-function initShipper() {
-
-    var inputs = ["author", "name", "description", "liveLink", "codeLink", "username"];
-
-    for (var i = 0; i < inputs.length; i++) {
-        if (i != 0) {
-            $("#" + inputs[i]).val("")
-        }
-        else {
-            if (firebase.auth().currentUser != null) {
-                $("#" + inputs[0]).val(firebase.auth().currentUser.displayName)
-            }
-        }
+    else {
+        //Mingjie work some css magic or something
     }
 }
 
@@ -296,7 +280,8 @@ function startUpVote(key) {
             upvoteStatus = false;
             checkIfAlreadyUpvoted(firebase.auth().currentUser.uid, key);
         }
-    } else {
+    }
+    else {
         forceLogin();
     }
 }
@@ -329,14 +314,15 @@ function upVoteProject(userId, key) {
         addUpVoteRef.update(updates);
 
         upvoteStatus = true;
-    } catch (e) {
+    }
+    catch (e) {
         toastr.error("This is most likely because you are not logged in, or you are a cheater.", "Error upvoting.")
     }
 }
 
 function updateUpVoteCount(key, state) {
     var updateUpVoteRef = database.ref("/projects/" + key);
-    updateUpVoteRef.once("value", function (snapshot) {
+    updateUpVoteRef.once("value", function(snapshot) {
         if (state === "add") {
             updateUpVoteRef.update({ upvote: snapshot.val().upvote + 1 });
         }
@@ -349,13 +335,15 @@ function updateUpVoteCount(key, state) {
 function checkIfAlreadyUpvoted(userId, key) {
     var checkRef = database.ref("/users/" + userId + "/upVoted/");
     var check = true;
-    checkRef.once('value', function (snapshot) {
+    checkRef.once('value', function(snapshot) {
         if (snapshot.val() === null) {
             upVoteProject(userId, key);
-        } else {
+        }
+        else {
             if (Object.keys(snapshot.val()).indexOf(key) != -1) {
                 unVoteProject(userId, key);
-            } else {
+            }
+            else {
                 upVoteProject(userId, key);
             }
         }
@@ -364,10 +352,11 @@ function checkIfAlreadyUpvoted(userId, key) {
 
 function getProp(id) {
     var specificRef = database.ref("/projects/" + id)
-    specificRef.once("value", function (snapshot) {
+    specificRef.once("value", function(snapshot) {
         try {
             buildPage(snapshot.val(), id);
-        } catch (e) {
+        }
+        catch (e) {
             toastr.error("Project not found!")
         }
     });
@@ -388,7 +377,7 @@ function addNewUser(userId) {
 }
 
 function checkForFirstTime(userId) {
-    databaseRef.child('users').child(userId).once('value', function (snapshot) {
+    databaseRef.child('users').child(userId).once('value', function(snapshot) {
         var exists = (snapshot.val() !== null);
         userFirstTimeCallback(userId, exists);
     });
@@ -397,23 +386,24 @@ function checkForFirstTime(userId) {
 function userFirstTimeCallback(userId, exists) {
     if (!exists) {
         addNewUser(userId);
-    } else {
+    }
+    else {
         loadUpVotedProjects(userId);
         loadFlaggedProjects(userId);
     }
 }
 
 function loadUpVotedProjects(userId) {
-    databaseRef.child('users').child(userId).child('upVoted').once('value', function (snapshot) {
-        snapshot.forEach(function (data) {
+    databaseRef.child('users').child(userId).child('upVoted').once('value', function(snapshot) {
+        snapshot.forEach(function(data) {
             crossCheckProjects(data.val().name);
         });
     });
 }
 
 function loadFlaggedProjects(userId) {
-    databaseRef.child('users').child(userId).child('flagged').once('value', function (snapshot) {
-        snapshot.forEach(function (data) {
+    databaseRef.child('users').child(userId).child('flagged').once('value', function(snapshot) {
+        snapshot.forEach(function(data) {
             crossFlagProjects(data.val().name);
         });
     });
@@ -440,12 +430,13 @@ function loadMoreProjects() {
 function requestNextProj(ts) {
     if (queryIr > 0) {
         try {
-            query.endAt(ts - 1, "timestamp").limitToLast(1).on('child_added', function (snapshot, prevChildKey) {
+            query.endAt(ts - 1, "timestamp").limitToLast(1).on('child_added', function(snapshot, prevChildKey) {
                 displayProjectsDown(snapshot.val(), snapshot.key);
                 requestNextProj(snapshot.val().timestamp);
                 queryIr--;
             });
-        } catch (e) {
+        }
+        catch (e) {
             console.log(e);
         }
     }
@@ -474,7 +465,8 @@ function displayProjectsDown(data, key) {
         $("#shipped").append(template(newProject));
         $(".unlaunch").on("click", closeShipper);
         $(".modal-background").on("click", closeShipper);
-    } catch (e) {
+    }
+    catch (e) {
         console.log("Warning: Unknown error occured. The content is successfully rendered.");
         console.log(e);
     }
@@ -488,8 +480,8 @@ function showUpvotedPage() {
     projectsDisplayed = [];
     $("#shipped").html("");
     var checkRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/upVoted/");
-    checkRef.once('value', function (snapshot) {
-        snapshot.forEach(function (data) {
+    checkRef.once('value', function(snapshot) {
+        snapshot.forEach(function(data) {
             getProjectsFromKey(data.val())
         });
     });
@@ -497,15 +489,14 @@ function showUpvotedPage() {
 }
 
 function showShippedPage() {
-
     $("#loadButton").hide();
     $("#title-banner").html("Your shipped projects...")
 
     projectsDisplayed = [];
     $("#shipped").html("");
     var checkRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/shipped/");
-    checkRef.once('value', function (snapshot) {
-        snapshot.forEach(function (data) {
+    checkRef.once('value', function(snapshot) {
+        snapshot.forEach(function(data) {
             getProjectsFromKey(data.val())
         });
     });
@@ -514,7 +505,7 @@ function showShippedPage() {
 
 function getProjectsFromKey(keys) {
     var testRef = database.ref("projects/" + keys.name);
-    testRef.once("value", function (snapshot) {
+    testRef.once("value", function(snapshot) {
         displayProjects(snapshot.val(), snapshot.key);
         $("#num" + snapshot.key).removeClass("is-light");
         $("#num" + snapshot.key).addClass("is-danger");
@@ -523,7 +514,7 @@ function getProjectsFromKey(keys) {
 
 function flagModal(uid) {
     $("#flag-modal" + uid).addClass("is-active");
-    setTimeout(function () {
+    setTimeout(function() {
         $("#confirm-flag-" + uid).removeClass("is-loading");
         $("#confirm-flag-" + uid).attr("disabled", false);
     }, 3000);
@@ -532,7 +523,8 @@ function flagModal(uid) {
 function startFlag(uid) {
     if (firebase.auth().currentUser != null) {
         checkIfAlreadyFlagged(firebase.auth().currentUser.uid, uid);
-    } else {
+    }
+    else {
         forceLogin();
     }
 
@@ -550,7 +542,8 @@ function flagProj(uid) {
         addFlagRef.update(updates);
 
         closeShipper();
-    } catch (e) {
+    }
+    catch (e) {
         console.log(e);
         toastr.error("This is most likely because you are not logged in, or you are a cheater.", "Error upvoting.")
     }
@@ -560,13 +553,15 @@ function flagProj(uid) {
 function checkIfAlreadyFlagged(userId, key) {
     var checkRef = database.ref("/users/" + userId + "/flagged/");
     var check = true;
-    checkRef.once('value', function (snapshot) {
+    checkRef.once('value', function(snapshot) {
         if (snapshot.val() === null) {
             flagModal(key);
-        } else {
+        }
+        else {
             if (Object.keys(snapshot.val()).indexOf(key) != -1) {
                 toastr.error("You have already flagged this post! You cannot unflag it.")
-            } else {
+            }
+            else {
                 flagModal(key);
             }
         }
@@ -575,7 +570,7 @@ function checkIfAlreadyFlagged(userId, key) {
 
 function updateFlagCount(key) {
     var updateFlagRef = database.ref("/projects/" + key);
-    updateFlagRef.once("value", function (snapshot) {
+    updateFlagRef.once("value", function(snapshot) {
         updateFlagRef.update({ flagged: snapshot.val().flagged + 1 });
     });
 }

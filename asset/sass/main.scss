@@ -1,0 +1,35 @@
+// Font Awesome
+@import "../../node_modules/font-awesome/scss/font-awesome.scss";
+
+
+//Normalize
+@import "../../node_modules/normalize.css/normalize.css";
+
+//Bulma
+@import "../../node_modules/bulma/sass/utilities/functions";
+//@import "../../node_modules/bulma/sass/utilities/initial-variables";
+
+//Toastr
+@import "../../node_modules/toastr/toastr";
+
+// Variables
+$black: #384046;
+$grey: #dde1e4;
+$grey-light: #f9f9fa;
+$red: #e42d42;
+
+$family-sans-serif: Averta, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+
+$primary: $red;
+$family-primary: Averta, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+
+$body-color: $black;
+
+$link: $primary;
+$link-hover: $primary;
+
+// Bulma
+@import "../../node_modules/bulma/bulma";
+
+//Shipit
+@import "base/font";

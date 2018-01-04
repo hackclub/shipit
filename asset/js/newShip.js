@@ -1,6 +1,3 @@
-var shipment = $("#shipment-templ").html();
-var template = Handlebars.compile(shipment);
-
 toastr.options.showMethod = 'slideDown';
 toastr.options.hideMethod = 'slideUp';
 toastr.options.closeMethod = 'slideUp';
@@ -10,42 +7,22 @@ toastr.options.closeEasing = 'linear';
 
 toastr.options.closeButton = true;
 
-function loadShipment(id) {
-    $("#shipped-placeholder").slideUp("slow");
-    $("#shipped").prepend(template(id));
-
-    $(".unlaunch").on("click", closeShipper);
-    $(".modal-background").on("click", closeShipper);
-
-}
-
-$("#launch").on("click", openShipper);
 $("#logged-in-user").on("click", triggerAccountMenu);
 
 function triggerAccountMenu() {
     $("#account-menu").slideToggle(100);
 }
 
-function openShipper() {
+window.onload = function() {
     console.log(firebase.auth().currentUser);
-    if (firebase.auth().currentUser != null) {
-        window.location = "new/";
-    } else {
-        forceLogin();
-    }
 }
 
 function closeShipper() {
     $(".modal").removeClass("is-active");
 }
 
-function forceLogin() {
-    $("#login-modal").addClass("is-active");
-}
-
-function shareShipment(uid) {
-    getSL(uid);
-    $("#share-modal" + uid).addClass("is-active");
+function finishShipper() {
+    window.location = "../";
 }
 
 $.get("https://api.github.com/repos/mj66/shipit-frontend/commits", function (data, status) {
