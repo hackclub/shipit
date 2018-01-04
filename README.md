@@ -5,9 +5,7 @@
 ![License](https://img.shields.io/github/license/hackclub/shipit.svg)
 [![Twitter Follow](https://img.shields.io/twitter/follow/starthackclub.svg?style=social&label=Follow)](https://twitter.com/starthackclub)
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/q7TTfZYjXAF2nnhG5MFVnFwy/hackclub/shipit'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/q7TTfZYjXAF2nnhG5MFVnFwy/hackclub/shipit.svg' />
-</a>
+
 
 ## About this platform
 The Shipit Platform runs on [Firebase][6], with other resources from [Rebrandly][7], [jQuery][8], [Font Awesome][9], [Handlebars.js][10], [Toastr.js][11], and a modified version of [Bulma.css][12]. Click on them to see their licenses. 
