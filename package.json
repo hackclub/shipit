@@ -28,7 +28,8 @@
     "fuse.js": "^3.2.0",
     "geolib": "^2.0.24",
     "jquery": "^3.2.1",
-    "toastr": "^2.1.4"
+    "toastr": "^2.1.4",
+    "normalize.css": "^7.0.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

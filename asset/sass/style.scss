@@ -62,7 +62,7 @@ a {
   .button {
     box-shadow: none;
   }
-  a:hover {
+  a, a:hover {
     color: #ffffff;
     background-color: transparent;
   }
