@@ -6,8 +6,8 @@
     projectId: "shipit-7427d",
     storageBucket: "shipit-7427d.appspot.com",
     messagingSenderId: "601650858338"
-  };
-  firebase.initializeApp(config);
+};
+firebase.initializeApp(config);
 
 //Database Control
 const provider = new firebase.auth.GithubAuthProvider();
