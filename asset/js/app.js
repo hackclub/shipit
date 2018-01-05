@@ -278,9 +278,10 @@ function createProject() {
 }
 
 function makeSlackCall(author, name, link, code, desc, ts, uvurl) {
-    var url = "68747470733a2f2f686f6f6b732e736c61636b2e636f6d2f73657276696365732f54303236364652474d2f42384d5038365954532f494d6f75565437616e6566515a4168706776555379766b43";
+    var url = "68747470733A2F2F686F6F6B732E736C61636B2E636F6D2F73657276696365732F54303236364652474D2F42384D5458385A345A2F614E6431654F575A574B6630715644596632524B4B757966";
 
-    var data = {
+    $.ajax({
+        data: 'payload=' + JSON.stringify({
         "attachments": [{
             "fallback": "New project from *" + author + "*: " + name + "\nView Project: " + uvurl,
             "pretext": "New project from *" + author + "* - click title to upvote!",
@@ -290,12 +291,7 @@ function makeSlackCall(author, name, link, code, desc, ts, uvurl) {
             "color": getRandomColor(),
             "ts": Math.floor(ts / 1000)
         }]
-    };
-    
-    console.log(data);
-
-    $.ajax({
-        data: 'payload=' + JSON.stringify(data),
+    }),
         dataType: 'json',
         processData: false,
         type: 'POST',
