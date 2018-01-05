@@ -1,11 +1,11 @@
-// Initialize Firebase - PRODUCTION BASE
+// Initialize Firebase - DEV BASE
 var config = {
-    apiKey: "AIzaSyD-IT1RWXi-7bMSjtTsPmpaTD2SXadFxC0",
-    authDomain: "shipit-7427d.firebaseapp.com",
-    databaseURL: "https://shipit-7427d.firebaseio.com",
-    projectId: "shipit-7427d",
-    storageBucket: "",
-    messagingSenderId: "601650858338"
+    apiKey: "AIzaSyDxvQeq7iqqfh2ZZeJZMWyLxXCX0KPMoBs",
+    authDomain: "shipit-alpha.firebaseapp.com",
+    databaseURL: "https://shipit-alpha.firebaseio.com",
+    projectId: "shipit-alpha",
+    storageBucket: "shipit-alpha.appspot.com",
+    messagingSenderId: "740447864312"
 };
 firebase.initializeApp(config);
 
@@ -119,6 +119,31 @@ function getSL(dest) {
     });
 }
 
+function shortLinkForSlack(author, name, plink, code, desc, ts, dest) {
+    $.ajax({
+        url: "https://api.rebrandly.com/v1/links",
+        type: "post",
+        data: JSON.stringify({
+            "destination": "https://shipit.hackclub.com/?shared=" + dest,
+            "domain": {
+                "id": "c8e958cfc21c4a6d8b94ed1690e8cfc4"
+            },
+            "title": "Shipit:" + firebase.auth().currentUser.displayName + " / " + firebase.auth().currentUser.uid + " / " + getTimeStamp(),
+            "team": "11eb9668b45643aa8911a853f8f3e624"
+        }),
+        headers: {
+            "team": "11eb9668b45643aa8911a853f8f3e624",
+            "Content-Type": "application/json",
+            "apikey": "1e766d2359454af3bdc8aa52353903a4",
+
+        },
+        dataType: "json",
+        success: function(link) {
+            makeSlackCall(author, name, plink, code, desc, ts, "https://" + link.shortUrl);
+        }
+    });
+}
+
 function shareTwitter(dest) {
     window.location.href = "http://twitter.com/share?text=Another wonderful project by a Hack Club member: &url=" + dest + "&via=starthackclub&related=starthackclub";
 }
@@ -216,26 +241,28 @@ function createProject() {
         }
         if (completed) {
             if (firebase.auth().currentUser != null) {
+                var ts = getTimeStamp();
                 var newProjectRef = projectsRef.push();
                 newProjectRef.set({
                     author: $("#" + inputs[0]).val(),
                     name: $("#" + inputs[1]).val(),
-                    timestamp: getTimeStamp(),
+                    timestamp: ts,
                     desc: $("#" + inputs[2]).val(),
                     link: $("#" + inputs[3]).val(),
                     code: $("#" + inputs[4]).val(),
                     upvote: 0,
                     flagged: 0,
                     featured: "false",
-                    uid: firebase.auth().currentUser.uid,
+                    uid: firebase.auth().currentUser.uid
                 });
+
+                shortLinkForSlack($("#" + inputs[0]).val(), $("#" + inputs[1]).val(), $("#" + inputs[3]).val(), $("#" + inputs[4]).val(), $("#" + inputs[2]).val(), ts, newProjectRef.key);
+
                 var addShippedRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/shipped/" + newProjectRef.key);
                 var updates = {
                     name: newProjectRef.key
                 };
                 addShippedRef.update(updates);
-
-                finishShipper();
             }
             else {
                 toastr.error("You are not logged in... Cheater!");
@@ -248,6 +275,50 @@ function createProject() {
     else {
         //Mingjie work some css magic or something
     }
+}
+
+function makeSlackCall(author, name, link, code, desc, ts, uvurl) {
+    var url = "68747470733a2f2f686f6f6b732e736c61636b2e636f6d2f73657276696365732f54303236364652474d2f42384d5038365954532f494d6f75565437616e6566515a4168706776555379766b43";
+
+    var data = {
+        "attachments": [{
+            "fallback": "New project from *" + author + "*: " + name + "\nView Project: " + uvurl,
+            "pretext": "New project from *" + author + "* - click title to upvote!",
+            "title": name,
+            "title_link": uvurl,
+            "text": desc + "\n*Get it*: " + link + "\n*Source*: " + code,
+            "color": getRandomColor(),
+            "ts": Math.floor(ts / 1000)
+        }]
+    };
+    
+    console.log(data);
+
+    $.ajax({
+        data: 'payload=' + JSON.stringify(data),
+        dataType: 'json',
+        processData: false,
+        type: 'POST',
+        url: hts(url),
+        success: finishShipper()
+    });
+}
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+function hts(h) {
+    var hex = h.toString(); //force conversion
+    var str = '';
+    for (var i = 0; i < hex.length; i += 2)
+        str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+    return str;
 }
 
 function checkIfValidURL(value, ssl) {
