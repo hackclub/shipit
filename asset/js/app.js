@@ -224,6 +224,7 @@ function displayFeatured(data, key, ednote) {
             uid: key
         }
         loadFeatured(newProject);
+        $("#project" + key).css("display", "none");
     }
     catch (e) {
         console.log("Warning: Unknown error occured. The content is successfully rendered.");
