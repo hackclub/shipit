@@ -1,6 +1,9 @@
 var shipment = $("#shipment-templ").html();
 var template = Handlebars.compile(shipment);
 
+var featuredShipment = $("#featured-templ").html();
+var featured = Handlebars.compile(featuredShipment);
+
 toastr.options.showMethod = 'slideDown';
 toastr.options.hideMethod = 'slideUp';
 toastr.options.closeMethod = 'slideUp';
@@ -17,6 +20,14 @@ function loadShipment(id) {
     $(".unlaunch").on("click", closeShipper);
     $(".modal-background").on("click", closeShipper);
 
+}
+
+function loadFeatured(id) {
+    $("#shipped-placeholder").slideUp("slow");
+    $("#shipped").prepend(featured(id));
+
+    $(".unlaunch").on("click", closeShipper);
+    $(".modal-background").on("click", closeShipper);
 }
 
 $("#launch").on("click", openShipper);

@@ -1,11 +1,11 @@
-// Initialize Firebase - PRODUCTION BASE
- var config = {
-    apiKey: "AIzaSyD-IT1RWXi-7bMSjtTsPmpaTD2SXadFxC0",
-    authDomain: "shipit-7427d.firebaseapp.com",
-    databaseURL: "https://shipit-7427d.firebaseio.com",
-    projectId: "shipit-7427d",
-    storageBucket: "shipit-7427d.appspot.com",
-    messagingSenderId: "601650858338"
+// Initialize Firebase - DEV BASE
+var config = {
+    apiKey: "AIzaSyDxvQeq7iqqfh2ZZeJZMWyLxXCX0KPMoBs",
+    authDomain: "shipit-alpha.firebaseapp.com",
+    databaseURL: "https://shipit-alpha.firebaseio.com",
+    projectId: "shipit-alpha",
+    storageBucket: "shipit-alpha.appspot.com",
+    messagingSenderId: "740447864312"
 };
 firebase.initializeApp(config);
 
@@ -24,7 +24,7 @@ var firstName;
 var firstKnownKey, lastProjLoaded, queryIr = 0,
     sfired = false;
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
         isLoggedIn(firebase.auth().currentUser);
     }
@@ -36,13 +36,13 @@ firebase.auth().onAuthStateChanged(function(user) {
 function githubSignin() {
     firebase.auth().signInWithRedirect(provider)
 
-        .then(function(result) {
+        .then(function (result) {
             firstName = firebase.auth().currentUser.displayName.split(" ")[0];
             checkForFirstTime(firebase.auth().currentUser.uid);
             //User Sucessfully Logged In
             toastr.success("Welcome, " + firstName + "!", "Successfully logged in.");
 
-        }).catch(function(error) {
+        }).catch(function (error) {
             var errorCode = error.code;
             var errorMessage = error.message;
             //User Log In Error
@@ -53,12 +53,12 @@ function githubSignin() {
 function githubSignout() {
     firebase.auth().signOut()
 
-        .then(function() {
+        .then(function () {
 
             window.location.reload();
             //User Log Out Successful, refresh page for content
 
-        }, function(error) {
+        }, function (error) {
 
             toastr.error("Signout failed: " + error);
 
@@ -112,7 +112,7 @@ function getSL(dest) {
 
         },
         dataType: "json",
-        success: function(link) {
+        success: function (link) {
             $("#share-id" + dest).attr("value", "https://" + link.shortUrl);
             $("#share-twitter" + dest).attr("onclick", "shareTwitter(\"https://" + link.shortUrl + "\")");
         }
@@ -138,7 +138,7 @@ function shortLinkForSlack(author, name, plink, code, desc, ts, dest) {
 
         },
         dataType: "json",
-        success: function(link) {
+        success: function (link) {
             makeSlackCall(author, name, plink, code, desc, ts, "https://" + link.shortUrl);
         }
     });
@@ -159,16 +159,30 @@ function getParams(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-$(function() {
+$(function () {
+    database.ref("/featured").once("value")
+        .then(function (snapshot) {
+            var featuredKey = snapshot.val()["featured"].toString();
+
+            var editorNotes = snapshot.val()["notes"].toString();
+
+            query.once("value").then(function (projSnap) {
+                console.log(featuredKey);
+                displayFeatured(projSnap.child(featuredKey).val(), featuredKey, editorNotes);
+            });
+
+    });
+
     var shared = getParams("shared");
     if (shared != null) {
         getProp(shared);
-        $("#launch").on("click", function() {
+        $("#launch").on("click", function () {
             window.location.replace("/?action=launch");
         });
     }
     else {
-        query.limitToLast(10).on("child_added", function(snapshot) {
+
+        query.limitToLast(10).on("child_added", function (snapshot) {
             if (!firstKnownKey) {
                 firstKnownKey = snapshot.key;
             }
@@ -177,6 +191,8 @@ $(function() {
                 lastProjLoaded = snapshot.val().timestamp;
             }
         });
+
+
     }
     var action = getParams("action");
     if (action == "launch") {
@@ -184,7 +200,7 @@ $(function() {
     }
 });
 
-connectedRef.on("value", function(snapshot) {
+connectedRef.on("value", function (snapshot) {
     if (snapshot.val() == true) {
         isConnected = true;
     }
@@ -194,6 +210,26 @@ connectedRef.on("value", function(snapshot) {
 });
 
 
+function displayFeatured(data, key, ednote) {
+    try {
+        var newProject = {
+            author: data.author,
+            name: data.name,
+            timestamp: convertTimestamp(data.timestamp),
+            desc: data.desc,
+            link: data.link,
+            code: data.code,
+            upvote: data.upvote,
+            ednote: ednote,
+            uid: key
+        }
+        loadFeatured(newProject);
+    }
+    catch (e) {
+        console.log("Warning: Unknown error occured. The content is successfully rendered.");
+        console.log(e);
+    }
+}
 
 function displayProjects(data, key) {
     try {
@@ -252,7 +288,6 @@ function createProject() {
                     code: $("#" + inputs[4]).val(),
                     upvote: 0,
                     flagged: 0,
-                    featured: "false",
                     uid: firebase.auth().currentUser.uid
                 });
 
@@ -282,16 +317,16 @@ function makeSlackCall(author, name, link, code, desc, ts, uvurl) {
 
     $.ajax({
         data: 'payload=' + JSON.stringify({
-        "attachments": [{
-            "fallback": "New project from *" + author + "*: " + name + "\nView Project: " + uvurl,
-            "pretext": "New project from *" + author + "* - click title to upvote!",
-            "title": name,
-            "title_link": uvurl,
-            "text": desc + "\n*Get it*: " + link + "\n*Source*: " + code,
-            "color": getRandomColor(),
-            "ts": Math.floor(ts / 1000)
-        }]
-    }),
+            "attachments": [{
+                "fallback": "New project from *" + author + "*: " + name + "\nView Project: " + uvurl,
+                "pretext": "New project from *" + author + "* - click title to upvote!",
+                "title": name,
+                "title_link": uvurl,
+                "text": desc + "\n*Get it*: " + link + "\n*Source*: " + code,
+                "color": getRandomColor(),
+                "ts": Math.floor(ts / 1000)
+            }]
+        }),
         dataType: 'json',
         processData: false,
         type: 'POST',
@@ -301,12 +336,12 @@ function makeSlackCall(author, name, link, code, desc, ts, uvurl) {
 }
 
 function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
 
 function hts(h) {
@@ -389,7 +424,7 @@ function upVoteProject(userId, key) {
 
 function updateUpVoteCount(key, state) {
     var updateUpVoteRef = database.ref("/projects/" + key);
-    updateUpVoteRef.once("value", function(snapshot) {
+    updateUpVoteRef.once("value", function (snapshot) {
         if (state === "add") {
             updateUpVoteRef.update({ upvote: snapshot.val().upvote + 1 });
         }
@@ -402,7 +437,7 @@ function updateUpVoteCount(key, state) {
 function checkIfAlreadyUpvoted(userId, key) {
     var checkRef = database.ref("/users/" + userId + "/upVoted/");
     var check = true;
-    checkRef.once('value', function(snapshot) {
+    checkRef.once('value', function (snapshot) {
         if (snapshot.val() === null) {
             upVoteProject(userId, key);
         }
@@ -419,7 +454,7 @@ function checkIfAlreadyUpvoted(userId, key) {
 
 function getProp(id) {
     var specificRef = database.ref("/projects/" + id)
-    specificRef.once("value", function(snapshot) {
+    specificRef.once("value", function (snapshot) {
         try {
             buildPage(snapshot.val(), id);
         }
@@ -444,7 +479,7 @@ function addNewUser(userId) {
 }
 
 function checkForFirstTime(userId) {
-    databaseRef.child('users').child(userId).once('value', function(snapshot) {
+    databaseRef.child('users').child(userId).once('value', function (snapshot) {
         var exists = (snapshot.val() !== null);
         userFirstTimeCallback(userId, exists);
     });
@@ -461,16 +496,16 @@ function userFirstTimeCallback(userId, exists) {
 }
 
 function loadUpVotedProjects(userId) {
-    databaseRef.child('users').child(userId).child('upVoted').once('value', function(snapshot) {
-        snapshot.forEach(function(data) {
+    databaseRef.child('users').child(userId).child('upVoted').once('value', function (snapshot) {
+        snapshot.forEach(function (data) {
             crossCheckProjects(data.val().name);
         });
     });
 }
 
 function loadFlaggedProjects(userId) {
-    databaseRef.child('users').child(userId).child('flagged').once('value', function(snapshot) {
-        snapshot.forEach(function(data) {
+    databaseRef.child('users').child(userId).child('flagged').once('value', function (snapshot) {
+        snapshot.forEach(function (data) {
             crossFlagProjects(data.val().name);
         });
     });
@@ -497,7 +532,7 @@ function loadMoreProjects() {
 function requestNextProj(ts) {
     if (queryIr > 0) {
         try {
-            query.endAt(ts - 1, "timestamp").limitToLast(1).on('child_added', function(snapshot, prevChildKey) {
+            query.endAt(ts - 1, "timestamp").limitToLast(1).on('child_added', function (snapshot, prevChildKey) {
                 displayProjectsDown(snapshot.val(), snapshot.key);
                 requestNextProj(snapshot.val().timestamp);
                 queryIr--;
@@ -547,8 +582,8 @@ function showUpvotedPage() {
     projectsDisplayed = [];
     $("#shipped").html("");
     var checkRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/upVoted/");
-    checkRef.once('value', function(snapshot) {
-        snapshot.forEach(function(data) {
+    checkRef.once('value', function (snapshot) {
+        snapshot.forEach(function (data) {
             getProjectsFromKey(data.val())
         });
     });
@@ -562,8 +597,8 @@ function showShippedPage() {
     projectsDisplayed = [];
     $("#shipped").html("");
     var checkRef = database.ref("/users/" + firebase.auth().currentUser.uid + "/shipped/");
-    checkRef.once('value', function(snapshot) {
-        snapshot.forEach(function(data) {
+    checkRef.once('value', function (snapshot) {
+        snapshot.forEach(function (data) {
             getProjectsFromKey(data.val())
         });
     });
@@ -572,7 +607,7 @@ function showShippedPage() {
 
 function getProjectsFromKey(keys) {
     var testRef = database.ref("projects/" + keys.name);
-    testRef.once("value", function(snapshot) {
+    testRef.once("value", function (snapshot) {
         displayProjects(snapshot.val(), snapshot.key);
         $("#num" + snapshot.key).removeClass("is-light");
         $("#num" + snapshot.key).addClass("is-danger");
@@ -581,7 +616,7 @@ function getProjectsFromKey(keys) {
 
 function flagModal(uid) {
     $("#flag-modal" + uid).addClass("is-active");
-    setTimeout(function() {
+    setTimeout(function () {
         $("#confirm-flag-" + uid).removeClass("is-loading");
         $("#confirm-flag-" + uid).attr("disabled", false);
     }, 3000);
@@ -620,7 +655,7 @@ function flagProj(uid) {
 function checkIfAlreadyFlagged(userId, key) {
     var checkRef = database.ref("/users/" + userId + "/flagged/");
     var check = true;
-    checkRef.once('value', function(snapshot) {
+    checkRef.once('value', function (snapshot) {
         if (snapshot.val() === null) {
             flagModal(key);
         }
@@ -637,7 +672,7 @@ function checkIfAlreadyFlagged(userId, key) {
 
 function updateFlagCount(key) {
     var updateFlagRef = database.ref("/projects/" + key);
-    updateFlagRef.once("value", function(snapshot) {
+    updateFlagRef.once("value", function (snapshot) {
         updateFlagRef.update({ flagged: snapshot.val().flagged + 1 });
     });
 }
