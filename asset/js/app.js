@@ -157,7 +157,6 @@ $(function () {
             var editorNotes = snapshot.val()["notes"].toString();
 
             query.once("value").then(function (projSnap) {
-                console.log(featuredKey);
                 displayFeatured(projSnap.child(featuredKey).val(), featuredKey, editorNotes);
             });
 
