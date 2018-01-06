@@ -552,6 +552,12 @@ function requestNextProj(ts) {
 function displayProjectsDown(data, key) {
     try {
         projectsDisplayed.push(key);
+        var featuredStatus = "";
+        var featuredShow = "none";
+        if (data.featured != "false") {
+            featuredStatus = "Featured in " + data.featured;
+            featuredShow = "normal";
+        }
         var newProject = {
             author: data.author,
             name: data.name,
@@ -560,6 +566,8 @@ function displayProjectsDown(data, key) {
             link: data.link,
             code: data.code,
             upvote: data.upvote,
+            featured: featuredStatus,
+            featuredShow: featuredShow,
             uid: key
         }
         $("#loadButton").attr("onclick", "loadMoreProjects('" + data.timestamp + "')")
