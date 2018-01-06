@@ -235,6 +235,10 @@ function displayFeatured(data, key, ednote) {
 function displayProjects(data, key) {
     try {
         projectsDisplayed.push(key);
+        var featuredStatus = "";
+        if (data.featured) {
+            featuredStatus = "Once Featured";
+        }
         var newProject = {
             author: data.author,
             name: data.name,
@@ -243,6 +247,7 @@ function displayProjects(data, key) {
             link: data.link,
             code: data.code,
             upvote: data.upvote,
+            featured: featuredStatus,
             uid: key
         }
         $("#loadButton").attr("onclick", "loadMoreProjects('" + data.timestamp + "')")
@@ -289,6 +294,7 @@ function createProject() {
                     code: $("#" + inputs[4]).val(),
                     upvote: 0,
                     flagged: 0,
+                    featured: false,
                     uid: firebase.auth().currentUser.uid
                 });
 

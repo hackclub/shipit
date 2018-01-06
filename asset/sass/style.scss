@@ -218,6 +218,12 @@ a.card-footer-item.is-danger {
   margin-bottom: 25px;
 }
 
+.featured-project .card {
+  -moz-box-shadow: 0 0 10px #e42d42;
+  -webkit-box-shadow: 0 0 10px #e42d42;
+  box-shadow: 0px 0px 10px #e42d42;
+}
+
 /*#featured {
 
   .card .card-header{
