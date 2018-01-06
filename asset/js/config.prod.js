@@ -7,4 +7,3 @@ var config = {
   storageBucket: "shipit-7427d.appspot.com",
   messagingSenderId: "601650858338"
 };
-firebase.initializeApp(config);

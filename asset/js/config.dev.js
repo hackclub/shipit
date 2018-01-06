@@ -7,4 +7,3 @@ var config = {
     storageBucket: "shipit-alpha.appspot.com",
     messagingSenderId: "740447864312"
 };
-firebase.initializeApp(config);

@@ -1,3 +1,4 @@
+firebase.initializeApp(config);
 //Database Control
 const provider = new firebase.auth.GithubAuthProvider();
 const database = firebase.database();
