@@ -236,8 +236,10 @@ function displayProjects(data, key) {
     try {
         projectsDisplayed.push(key);
         var featuredStatus = "";
+        var featuredShow = "none";
         if (data.featured != "false") {
             featuredStatus = "Featured in " + data.featured;
+            featuredShow = "normal";
         }
         var newProject = {
             author: data.author,
@@ -248,6 +250,7 @@ function displayProjects(data, key) {
             code: data.code,
             upvote: data.upvote,
             featured: featuredStatus,
+            featuredShow: featuredShow,
             uid: key
         }
         $("#loadButton").attr("onclick", "loadMoreProjects('" + data.timestamp + "')")
