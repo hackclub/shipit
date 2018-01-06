@@ -236,8 +236,8 @@ function displayProjects(data, key) {
     try {
         projectsDisplayed.push(key);
         var featuredStatus = "";
-        if (data.featured) {
-            featuredStatus = "Once Featured";
+        if (data.featured != "false") {
+            featuredStatus = "Featured in " + data.featured;
         }
         var newProject = {
             author: data.author,
@@ -294,7 +294,7 @@ function createProject() {
                     code: $("#" + inputs[4]).val(),
                     upvote: 0,
                     flagged: 0,
-                    featured: false,
+                    featured: "false",
                     uid: firebase.auth().currentUser.uid
                 });
 
