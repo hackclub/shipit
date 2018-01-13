@@ -1,11 +1,7 @@
 # Hack Club Shipit Platform
 ### Welcome to the new era of spaghetti one-pager. By [**@jsneak**][1] & [**@mj66**][2]
-[![GitHub release](https://img.shields.io/github/release/hackclub/shipit.svg)](https://github.com/hackclub/shipit/releases)
-[![GitHub last commit](https://img.shields.io/github/last-commit/hackclub/shipit.svg)](https://github.com/hackclub/shipit/commits)
-![License](https://img.shields.io/github/license/hackclub/shipit.svg)
+[![Maintainability](https://api.codeclimate.com/v1/badges/7ad75aa411799aa0b842/maintainability)](https://codeclimate.com/github/hackclub/shipit/maintainability)
 [![Twitter Follow](https://img.shields.io/twitter/follow/starthackclub.svg?style=social&label=Follow)](https://twitter.com/starthackclub)
-
-
 
 ## About this platform
 The Shipit Platform runs on [Firebase][6], with other resources from [Rebrandly][7], [jQuery][8], [Font Awesome][9], [Handlebars.js][10], [Toastr.js][11], and a modified version of [Bulma.css][12]. Click on them to see their licenses. 
